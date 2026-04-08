@@ -1,0 +1,5 @@
+/* make divs have a lil pink border and a lil bit of padding */
+div {
+    border: 5px dashed pink;
+    padding: 10px;
+}
