@@ -1,0 +1,9 @@
+  body {
+    margin: 0;
+    background: #0e0e0e;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+  canvas {
+    display: block;
+  }
