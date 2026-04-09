@@ -1,5 +1,52 @@
-/* make divs have a lil pink border and a lil bit of padding */
-div {
-    border: 5px dashed pink;
-    padding: 10px;
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #ffffff, #f2f2f2);
+  font-family: sans-serif;
+  color: #222;
+}
+
+/* stronger organism field */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+
+  /* 👇 key changes */
+  filter: blur(18px) contrast(180%) saturate(140%);
+  opacity: 0.9;
+
+  /* this makes overlaps feel like ink pooling */
+  mix-blend-mode: multiply;
+}
+
+/* cells */
+.blob {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+/* text */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.nombre {
+  font-weight: 600;
+  color: #111;
+}
+
+.inst {
+  opacity: 0.6;
+  color: #333;
 }

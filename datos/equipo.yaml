@@ -1,0 +1,13 @@
+equipo:
+  - nombre: "Andrea Jösch"
+    institucion: "Universidad Diego Portales"
+    departamento: "Escuela de Arte"
+  - nombre: "Bernardita Croxatto"
+    institucion: "Universidad Diego Portales"
+    departamento: "Escuela de Arte"
+  - nombre: "Persona bacán 1"
+    institucion: "Museo Interactivo Mirador"
+    departamento: "Educación"
+  - nombre: "Persona bacán 2"
+    institucion: "Museo Interactivo Mirador"
+    departamento: "Educación"
