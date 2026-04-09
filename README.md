@@ -7,6 +7,8 @@ estas son las partes de la web:
 - `index.html`: web principal
 - `audios/`: web de audios
 - `redes/`: web de redes
+- ``glosario/`: web de glosario
+- `equipo`: web del equipo
 
 los archivos están distribuidos así:
 
