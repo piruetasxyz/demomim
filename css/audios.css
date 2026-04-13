@@ -1,9 +1,10 @@
-  body {
-    margin: 0;
-    background: #0e0e0e;
-    overflow: hidden;
-    font-family: sans-serif;
-  }
-  canvas {
-    display: block;
-  }
+body {
+  margin: 0;
+  background: #ec6608;
+  overflow: hidden;
+  font-family: "area", sans-serif;
+}
+
+canvas {
+  display: block;
+}

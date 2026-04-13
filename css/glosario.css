@@ -1,5 +1,12 @@
-/* make divs have a lil pink border and a lil bit of padding */
-div {
-    border: 5px dashed pink;
-    padding: 10px;
+body {
+    font-family: "area", sans-serif;
+    font-weight: 400;
+    background: #ffffff;
+    color: #000;
+    margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
 }

@@ -56,7 +56,7 @@ class Blob {
 
     // --- TEXT ---
     ctx.fillStyle = "#000";
-    ctx.font = "bold 16px sans-serif";
+    ctx.font = "700 16px 'area', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(this.label, this.x, this.y);
@@ -79,8 +79,8 @@ class Blob {
 
 // --- Create blobs ---
 const blobs = [
-  new Blob(canvas.width * 0.3, canvas.height / 2, 70, "#00ffaa", "afecto", 0),
-  new Blob(canvas.width * 0.7, canvas.height / 2, 70, "#ff0066", "regenerar", 1),
+  new Blob(canvas.width * 0.3, canvas.height / 2, 70, "#ffffff", "afecto", 0),
+  new Blob(canvas.width * 0.7, canvas.height / 2, 70, "#ffffff", "regenerar", 1),
 ];
 
 // --- Dragging state ---

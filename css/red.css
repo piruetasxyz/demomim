@@ -9,7 +9,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #fafafa;
+  background: #ffffff;
+  font-family: "area", sans-serif;
 }
 
 /* ── SVG canvas ─────────────────────────────────────────────────────────── */
@@ -18,7 +19,7 @@ body {
   display: block;
   width: 100vw;
   height: calc(100vh - 52px);
-  background: #fafafa;
+  background: #ffffff;
   touch-action: none;
 }
 
@@ -49,15 +50,15 @@ body {
   z-index: 200;
   padding: 10px 20px;
   border-radius: 4px;
-  background: #fff2f2;
-  border: 1px solid #f5c6c6;
-  color: #b00020;
-  font-family: sans-serif;
+  background: #ffffff;
+  border: 1px solid #ec6608;
+  color: #ec6608;
+  font-family: "area", sans-serif;
   font-size: 13px;
   line-height: 1.5;
   max-width: 460px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 10px rgba(236, 102, 8, 0.15);
 }
 
 /* ── Templates panel ────────────────────────────────────────────────────── */
@@ -68,8 +69,8 @@ body {
   left: 0;
   right: 0;
   z-index: 8;
-  background: #f2f2f0;
-  border-top: 1px solid #ddddd9;
+  background: #ffffff;
+  border-top: 1px solid #ec6608;
   padding: 14px 24px 16px;
   display: flex;
   align-items: flex-start;
@@ -81,12 +82,12 @@ body {
 }
 
 .templates-panel-label {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.10em;
-  color: #999;
+  color: #ec6608;
   white-space: nowrap;
   padding-top: 10px;
   flex-shrink: 0;
@@ -104,9 +105,9 @@ body {
   align-items: flex-start;
   gap: 2px;
   padding: 7px 13px 8px;
-  border: 1px solid #d4d4d0;
+  border: 1px solid #ec6608;
   border-radius: 5px;
-  background: #fafaf8;
+  background: #ffffff;
   cursor: pointer;
   outline: none;
   transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
@@ -114,32 +115,42 @@ body {
 }
 
 .template-tile:hover {
-  background: #efefec;
-  border-color: #bbb;
+  background: #ec6608;
+}
+
+.template-tile:hover .tile-name,
+.template-tile:hover .tile-desc {
+  color: #ffffff;
 }
 
 .template-tile:active {
-  background: #e6e6e2;
+  background: #ec6608;
 }
 
 .template-tile.active {
-  background: #eeeae3;
-  border-color: #888;
-  box-shadow: 0 0 0 1px #aaa inset;
+  background: #ec6608;
+  border-color: #ec6608;
+  box-shadow: 0 0 0 1px #ec6608 inset;
+}
+
+.template-tile.active .tile-name,
+.template-tile.active .tile-desc {
+  color: #ffffff;
 }
 
 .tile-name {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 12px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #ec6608;
   white-space: nowrap;
 }
 
 .tile-desc {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 10px;
-  color: #999;
+  font-weight: 100;
+  color: #ec6608;
   white-space: nowrap;
 }
 
@@ -156,8 +167,8 @@ body {
   align-items: center;
   gap: 20px;
   padding: 0 24px;
-  background: #f6f6f4;
-  border-top: 1px solid #e4e4e2;
+  background: #ffffff;
+  border-top: 1px solid #ec6608;
 }
 
 .control-group {
@@ -171,12 +182,12 @@ body {
 }
 
 .control-label {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #999;
+  color: #ec6608;
   white-space: nowrap;
   user-select: none;
 }
@@ -189,7 +200,7 @@ input[type="range"] {
   width: 78px;
   height: 3px;
   border-radius: 2px;
-  background: #ddd;
+  background: rgba(236, 102, 8, 0.2);
   outline: none;
   cursor: pointer;
 }
@@ -199,7 +210,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #555;
+  background: #ec6608;
   cursor: pointer;
   border: none;
 }
@@ -208,7 +219,7 @@ input[type="range"]::-moz-range-thumb {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #555;
+  background: #ec6608;
   cursor: pointer;
   border: none;
 }
@@ -216,57 +227,60 @@ input[type="range"]::-moz-range-thumb {
 /* ── Select ─────────────────────────────────────────────────────────────── */
 
 select {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 11px;
-  color: #333;
-  border: 1px solid #d0d0d0;
+  color: #ec6608;
+  border: 1px solid #ec6608;
   border-radius: 3px;
   padding: 3px 6px;
-  background: #fff;
+  background: #ffffff;
   cursor: pointer;
   outline: none;
 }
 
 select:hover {
-  border-color: #aaa;
+  background: #ec6608;
+  color: #ffffff;
 }
 
 /* ── Buttons ────────────────────────────────────────────────────────────── */
 
 button {
-  font-family: sans-serif;
+  font-family: "area", sans-serif;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #555;
-  border: 1px solid #d0d0d0;
+  color: #ec6608;
+  border: 1px solid #ec6608;
   border-radius: 3px;
-  background: #fff;
+  background: #ffffff;
   padding: 5px 11px;
   cursor: pointer;
   outline: none;
   user-select: none;
-  transition: background 0.1s, border-color 0.1s;
+  transition: background 0.1s, color 0.1s;
 }
 
 button:hover {
-  background: #efefef;
-  border-color: #bbb;
+  background: #ec6608;
+  color: #ffffff;
 }
 
 button:active {
-  background: #e6e6e6;
+  background: #ec6608;
+  color: #ffffff;
 }
 
 .btn-templates {
-  color: #444;
-  font-weight: 600;
+  color: #ec6608;
+  font-weight: 700;
 }
 
 .btn-templates.open {
-  background: #ebebeb;
-  border-color: #bbb;
+  background: #ec6608;
+  color: #ffffff;
+  border-color: #ec6608;
 }
 
 /* ── Responsive / Mobile ─────────────────────────────────────────────────── */
@@ -313,7 +327,7 @@ button:active {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #555;
+    background: #ec6608;
     cursor: pointer;
     border: none;
   }
