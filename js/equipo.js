@@ -37,14 +37,18 @@ function init(equipo) {
       y: innerHeight/2 + (Math.random() - 0.5) * 60,
       vx: 0,
       vy: 0,
-      hue: hashColor(p.institucion),
+      hue: hashColor(p["institucion-largo"]),
       dragging: false
     };
+
+    const institucion = innerWidth <= 600
+      ? p["institucion-corto"]
+      : p["institucion-largo"];
 
     el.innerHTML = `
       <div class="content">
         <div class="nombre">${p.nombre}</div>
-        <div class="inst">${p.institucion}</div>
+        <div class="inst">${institucion}</div>
       </div>
     `;
 
@@ -152,6 +156,16 @@ function init(equipo) {
         } else if (b.y > bottom) {
           b.vy -= (b.y - bottom) * 0.06;
         }
+
+        // hard safety clamp: when many blobs crowd the same edge,
+        // repulsion between them can overpower the soft push above,
+        // so pin the position at the wall (no bounce, just a stop)
+        // to guarantee nothing (or its text) ever leaves the screen
+        if (b.x < left) { b.x = left; if (b.vx < 0) b.vx = 0; }
+        else if (b.x > right) { b.x = right; if (b.vx > 0) b.vx = 0; }
+
+        if (b.y < top) { b.y = top; if (b.vy < 0) b.vy = 0; }
+        else if (b.y > bottom) { b.y = bottom; if (b.vy > 0) b.vy = 0; }
       }
 
       const s = 1 + Math.sin(phase) * 0.08;
