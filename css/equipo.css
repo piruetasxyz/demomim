@@ -20,10 +20,18 @@ canvas {
 /* cells */
 .blob {
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   pointer-events: auto;
   cursor: grab;
+  touch-action: none;
+}
+
+@media (max-width: 600px) {
+  .blob {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 /* text */
@@ -35,6 +43,12 @@ canvas {
   text-align: center;
   font-size: 12px;
   pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .content {
+    font-size: 9px;
+  }
 }
 
 .nombre {
