@@ -78,30 +78,39 @@ function init(equipo) {
     const cx = innerWidth / 2;
     const cy = innerHeight / 2;
 
-    // hard boundary radius so the cluster can never spill past the
-    // edges of the screen, scaled to whichever dimension is smaller
-    const maxRadius = Math.max(Math.min(innerWidth, innerHeight) * 0.32, 90);
-
     const size = blobSize();
     const half = size / 2;
     const metaballR = size * 0.34;
+
+    // soft rectangular walls, padded so blobs (and their text) stay
+    // fully on screen. b.x/b.y are the blob's top-left corner, so the
+    // right/bottom bounds must subtract the full blob size, not just
+    // half of it, or the far edge can drift past the viewport.
+    const padding = 50;
+    const left = padding;
+    const right = innerWidth - size - padding;
+    const top = padding;
+    const bottom = innerHeight - size - padding;
 
     blobs.forEach(b => {
 
       if (!b.dragging) {
 
-        // attraction to the shared center
+        // attraction to the shared center (softer, so repulsion can
+        // spread people out further instead of collapsing into a ring)
         let dx = cx - b.x;
         let dy = cy - b.y;
 
-        b.vx += dx * 0.0008;
-        b.vy += dy * 0.0008;
+        b.vx += dx * 0.00035;
+        b.vy += dy * 0.00035;
 
         // orbit, ties everyone into one rotating, interconnected mass
-        b.vx += -dy * 0.0006;
-        b.vy += dx * 0.0006;
+        // (weaker than before, so it doesn't force a tight ring)
+        b.vx += -dy * 0.00025;
+        b.vy += dx * 0.00025;
 
         // repulsion between all people, regardless of institución
+        // (stronger, so nobody gets trapped bouncing near the center)
         blobs.forEach(o => {
           if (b === o) return;
 
@@ -110,7 +119,7 @@ function init(equipo) {
           let d = Math.sqrt(dx*dx + dy*dy);
           if (d < 20) d = 20;
 
-          let rep = -10 / (d*d);
+          let rep = -22 / (d*d);
 
           b.vx += rep * dx;
           b.vy += rep * dy;
@@ -119,19 +128,29 @@ function init(equipo) {
         b.vx *= 0.95;
         b.vy *= 0.95;
 
+        // speed cap: nothing is allowed to spin off at high speed
+        const speed = Math.sqrt(b.vx*b.vx + b.vy*b.vy);
+        const maxSpeed = 3.5;
+        if (speed > maxSpeed) {
+          b.vx = (b.vx / speed) * maxSpeed;
+          b.vy = (b.vy / speed) * maxSpeed;
+        }
+
         b.x += b.vx;
         b.y += b.vy;
 
-        // hard clamp: keep every blob within maxRadius of center
-        const distX = b.x - cx;
-        const distY = b.y - cy;
-        const dist = Math.sqrt(distX*distX + distY*distY);
-        if (dist > maxRadius) {
-          const angle = Math.atan2(distY, distX);
-          b.x = cx + Math.cos(angle) * maxRadius;
-          b.y = cy + Math.sin(angle) * maxRadius;
-          b.vx *= -0.3;
-          b.vy *= -0.3;
+        // soft walls: gently push back in, proportional to how far
+        // past the edge the blob is, instead of a hard circular clamp
+        if (b.x < left) {
+          b.vx += (left - b.x) * 0.06;
+        } else if (b.x > right) {
+          b.vx -= (b.x - right) * 0.06;
+        }
+
+        if (b.y < top) {
+          b.vy += (top - b.y) * 0.06;
+        } else if (b.y > bottom) {
+          b.vy -= (b.y - bottom) * 0.06;
         }
       }
 
