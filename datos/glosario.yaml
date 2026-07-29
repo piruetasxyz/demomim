@@ -124,10 +124,11 @@ glosario:
     concepto: "Afecto"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Algo que se siente. Un agujero negro que no es oscuro por dentro, pero que conecta la materia con lo que no se toca. Es una energía invisible pero vital que permite pegar cosas, unas a otras, incluso a distancia. Está fuera del tiempo y, seguramente, pertenece a la dinámica cuántica, si se estudiara poético-científicamente. No tiene raza, ni especie, es transver sal y universal. Dos cuerpos celestes pueden verse 'afectados' por su gravedad y pueden colisionar si confunden afecto con atracción. El afecto no tiene que ver con el deseo. Pero como la aversión puede dar paso a la guerra, confundir el afecto con la intensidad de un deseo puede también desencadenar locura. El afecto es eso que está, es presencia, y nos muestra que no estamos solas, ni solos, mientras la vida transcurre."
+        persona: "Manuela Oyarzún"
+        contexto: "Actriz, dramaturga"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: False
+        imagen: "afecto-02.png"
+        persona: "Estudiante"
+        contexto: "Cuarto básico de la Escuela Casa azul"
