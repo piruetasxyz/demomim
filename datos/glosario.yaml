@@ -306,42 +306,45 @@ glosario:
     concepto: "Putrefacción"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Estado posible de la materia, sustento de la vida. Proliferación de microorganismos que habitan la materi por muerte o descuido."
+        persona: "Isabel Ibáñez"
+        contexto: "Madre, gestora cultural, licenciada en Historia y Teoría del Arte U de Chile"
   - pregunta: "¿Qué es resolver juntas?"
     concepto: "Resolver juntas"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: " En esta isla de Chiloé para mi es muy importante cómo hoy en día la juventud y la gente que se ha integrado a la isla chilota ven la vida desde su mirada. Veo humanamente que por medio de la cultura tradicional ésta se mantiene presente por medio de redes, apoyos y gestores, reuniones y juntas de vecinos. La comunicación es muy importante, porque se construyen legados, vivencias, costumbres con el aporte de cada una de las personas a la vida presente. Actualmente todo tipo de problemas y cambios radicales se pueden presentar en esta vida y son acogidas con diálogos, conversatorios y puntos de vista de cada uno."
+        persona: "Silvia Rivera"
+        contexto: "Artista, Castro, Chiloé"
   - pregunta: "¿Qué es salvaje o indómito?"
     concepto: "Salvaje, Indómito"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: >
+          Dícese de aquella característica individual que permanece y resiste los embates de la domesticación. Esta última produce individuos homogéneos, predecibles y monótonos, en entornos creados artificialmente, en el nombre de una pretendida e imposible paz.
+
+          La doma o cultivo del total de individuos de una especie, a través del aseguramiento de sus condiciones materiales mínimas de supervivencia en entornos controlables y predecibles, reduce su variabilidad. En un ambiente ilusoriamente estático, las distintas características, habilidades y competencias de los individuos de una especie no encuentran su oportunidad de ser sometidas a prueba. La docilidad, como característica vencedora en el aseguramiento de mínimos vitales, se replica entonces indefinidamente hasta asfixiar cualquier otra potencialidad. No obstante, el entorno es cambiante—siempre lo es—, y la monotonía doméstica es frágil, vulnerable al desastre. Únicamente en las fieras salvajes encontramos un reservorio de esperanza; si el terror que le produce al sistema su mera existencia no amenazara irremisiblemente su vida como paso previo al desastre colectivo, se abriría un camino de regeneración.
+        persona: "Rocío Angulo"
+        contexto: "Doctora en Psicología. Instituto de Ciencias Sociales U. de O´Higgins"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Indomable, salvaje, algo que se resiste a ser dominado. Se refiere tanto a la resistencia como a la libertad. Lo indómito puede ser el estado de un sujeto cuando es salvaje y lleno de energía. A menudo se usa para señalar a poblaciones no dominadas, lo primero que se me viene a la mente es el pueblo mapuche."
+        persona: "Susana Eyheramendy"
+        contexto: "Matemática, doctora en estadística, postdoctorada en matemáticas genéticas"
   - pregunta: "¿Qué es sustentable?"
     concepto: "Sustentable"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Es un equilibrio dinámico, es decir, una estabilidad en constante cambio, donde una población que interactúa con su entorno, se desarrolla sin afectar de manera negativa e irreversible el ambiente del cual depende. Un desarrollo sustentable, implica un uso responsable de los recursos naturales, respetando la capacidad regenerativa de los ecosistemas y evitando agotar los recursos que provee la naturaleza. Así, futuras generaciones de personas y otros seres vivos, podrán tener acceso a ellos y satisfacer sus necesidades vitales."
+        persona: " Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo Interactivo Mirador"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Es la manera en que las personas y comunidades gestionan los recursos disponibles, reconociendo que estos son limitados y que su uso debe orientarse hacia una visión de futuro. Esto implica garantizar la capacidad de satisfacer las necesidades presentes sin comprometer las de las generaciones venideras, procurando un equilibrio entre el desarrollo económico, la protección del medioambiente y el bienestar social. Para que la sustentabilidad sea posible, se requiere de un sistema que genere conocimiento, respete la idiosincrasia de las comunidades y considere las interrelaciones dentro de los ecosistemas, con el fin de construir caminos colectivos hacia un futuro compartido. El concepto de sustentabilidad ha sido adaptado creativamente desde la ecología a otros campos del saber. Por ejemplo, la sustentabilidad cultural constituye un campo de estudio y acción que surge como respuesta a las exigencias éticas de la academia y el activismo, orientada a enfrentar los desafíos del trabajo cultural y su transformación en un mundo incierto."
+        persona: "María Rosario Bravo Collado"
+        contexto: "Directora de Coros y Etnomusicóloga"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Sustentable, aplicase a una actividad o estructura hecha de tal manera que se sostiene en el tiempo sin perjudicar su entorno o que incorpora en su desarrollo o diseño el conjunto de alteraciones inevitables de tal manera que logran un equilibrio que perdura en el tiempo y no crea perjuicios significativos al entorno."
+        persona: "Andrés Jordán"
+        contexto: "Astrónomo, director del Instituto Milenio de Astrofísica MAS"
   - pregunta: "¿Qué es territorio?"
     concepto: "Territorio"
     definiciones:
