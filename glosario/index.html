@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>glosario</title>
 <script src="./../lib/js-yaml.min.js"></script>
 <link rel="stylesheet" href="https://use.typekit.net/naa5mvy.css">
@@ -10,7 +11,13 @@
 </head>
 <body>
 
-<div id="divGlosario"></div>
+<h1>Glosario</h1>
+<canvas id="c"></canvas>
+
+<div id="panel" class="panel oculto">
+  <button id="cerrarPanel" class="cerrar" aria-label="Cerrar">×</button>
+  <div id="panelContenido"></div>
+</div>
 
 <script src="./../js/glosario.js"></script>
 

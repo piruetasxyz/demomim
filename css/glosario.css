@@ -1,31 +1,168 @@
 body {
-    font-family: "Mirador", sans-serif;
-    font-weight: 400;
-    background: #ffffff;
-    color: #000;
-    margin: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: "Mirador", sans-serif;
+  font-weight: 400;
+  color: #ec6608;
 }
 
-#divGlosario {
-    padding: 2rem;
+h1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  font-weight: 700;
+  pointer-events: none;
 }
 
-.glosario-item {
-    margin-bottom: 1.5rem;
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  filter: blur(18px) contrast(180%) saturate(140%);
+  opacity: 0.9;
+  mix-blend-mode: multiply;
 }
 
-.glosario-definicion {
-    margin-bottom: 1.5rem;
+/* concept blobs */
+.blob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: none;
 }
 
-.glosario-imagen {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 0.5rem;
+@media (max-width: 600px) {
+  .blob {
+    width: 76px;
+    height: 76px;
+  }
 }
 
-.glosario-firma {
-    font-size: 0.9rem;
-    color: #555;
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82%;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .content {
+    font-size: 10px;
+  }
+}
+
+.concepto {
+  font-weight: 700;
+  color: #ec6608;
+}
+
+/* definicion panel */
+.panel {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 10;
+  /* the backdrop itself is click-through, so blobs underneath stay
+     tappable — clicking the same (or another) concept while the
+     panel is open just swaps the content instead of getting stuck
+     needing to close the panel first */
+  pointer-events: none;
+}
+
+.panel.oculto {
+  display: none;
+}
+
+#panelContenido {
+  position: relative;
+  max-width: 640px;
+  max-height: 80vh;
+  width: 100%;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 2px solid #ec6608;
+  border-radius: 24px;
+  padding: 2rem;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  #panelContenido {
+    max-height: 76vh;
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+}
+
+#panelContenido h2 {
+  margin-top: 0;
+  color: #ec6608;
+}
+
+#panelContenido .texto {
+  color: #000;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+#panelContenido .imagen {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+#panelContenido .firma {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+#panelContenido .contador {
+  color: #ec6608;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.cerrar {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #ec6608;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #ec6608;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 11;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .cerrar {
+    top: 1rem;
+    right: 1rem;
+  }
 }
