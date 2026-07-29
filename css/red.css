@@ -10,7 +10,7 @@ body {
   height: 100%;
   overflow: hidden;
   background: #ffffff;
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
 }
 
 /* ── SVG canvas ─────────────────────────────────────────────────────────── */
@@ -53,7 +53,7 @@ body {
   background: #ffffff;
   border: 1px solid #ec6608;
   color: #ec6608;
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 13px;
   line-height: 1.5;
   max-width: 460px;
@@ -82,7 +82,7 @@ body {
 }
 
 .templates-panel-label {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -139,7 +139,7 @@ body {
 }
 
 .tile-name {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 12px;
   font-weight: 700;
   color: #ec6608;
@@ -147,7 +147,7 @@ body {
 }
 
 .tile-desc {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 10px;
   font-weight: 100;
   color: #ec6608;
@@ -182,7 +182,7 @@ body {
 }
 
 .control-label {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -227,7 +227,7 @@ input[type="range"]::-moz-range-thumb {
 /* ── Select ─────────────────────────────────────────────────────────────── */
 
 select {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 11px;
   color: #ec6608;
   border: 1px solid #ec6608;
@@ -246,7 +246,7 @@ select:hover {
 /* ── Buttons ────────────────────────────────────────────────────────────── */
 
 button {
-  font-family: "area", sans-serif;
+  font-family: "Mirador", sans-serif;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
