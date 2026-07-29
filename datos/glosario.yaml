@@ -346,37 +346,49 @@ glosario:
     concepto: "Territorio"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Para mí tiene que ver con todo lo que significa habitar un espacio, convivir con una comunidad, con gente, con una cultura, desarrollarla, cultivarla y conversar todo lo que significa el ser isleños, o lo que significa ser campesino, lo que es guardar tradiciones."
+        persona: "Osvaldo Güineo"
+        contexto: "Artista textil, isla Cailin, Quellón"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "El territorio en Chiloé no es solo un espacio geográfico, sino un lugar lleno de historia, cultura y vida. Es el suelo donde las comunidades han tejido sus tradiciones, sus formas de relacionarse con la naturaleza y entre sí. En este archipiélago, el territorio es un patrimonio común que sostiene la identidad colectiva y la memoria ancestral de sus habitantes."
+        persona: "Marcela Enriqueta Contreras Iturrieta"
+        contexto: "Artesana en lana, Queilen, Quemchi"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: >
+          Para mí, el territorio no es una simple superficie que se delimita en un mapa. Es un cuerpo vivo que me contiene, que me habla, que me recuerda quién soy. Es la memoria de quienes han caminado estos senderos antes que yo, es el murmullo del estero, el nombre antiguo de un cerro, la manera en que el viento roza las tejuelas. El territorio me forma tanto como yo lo habito. El territorio es identidad, es historia y lenguaje compartido.
+
+          En mi trabajo cultural y en mi forma de estar en el mundo, no pienso el territorio como un escenario, sino como un interlocutor. No trabajo en el territorio: me esfuerzo por trabajar con él. Y eso implica respeto, escucha atenta, tiempo y reciprocidad. No concibo la creación sin esta conversación profunda con el entorno, con sus tiempos, con sus silencios.
+
+          El territorio también es comunidad. No puede separarse de las personas que lo habitan, de sus oficios, sus afectos, sus luchas. Es una red viva de vínculos. Cuidarlo no es solo un acto ecológico: es un gesto ético, espiritual y político. Es cuidarnos entre todos. En un mundo cada vez más fragmentado, el territorio me recuerda el sentido de pertenencia. Me da raíces y también horizonte. Me dice que no estoy solo. Que la belleza, la fragilidad y la resistencia están entrelazadas
+        persona: "Pablo Carvacho Yáñez"
+        contexto: "Gestor cultural, Contuy, Queilen"
   - pregunta: "¿Qué es tiempo?"
     concepto: "Tiempo"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "El tiempo, el presente, es un flujo en permanente cambio donde participa todo lo que existe en el universo."
+        persona: "Suman Saha"
+        contexto: "Estudiante de postdoctorado en Astronomía UDP"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "El tiempo es una magnitud física que, debido a nuestra condición de seres tridimensionales, sólo podemos experimentar en una única dirección: hacia adelante. Esa evolución constante del tiempo está asociada a un incremento inevitable de la entropía, es decir, al aumento del desorden en los sistemas."
+        persona: "Kristína Kallová"
+        contexto: ". Estudiante de doctorado en Astrofísica UDP"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: >
+          El tiempo, tal como lo entiendo y lo vivo, no está hecho de minutos ni de fechas en un calendario. En mi experiencia, el tiempo tiene que ver con el pulso del mar, con el brote de una semilla, con la luz que entra por una ventana a cierta hora del día. Es un tiempo que no corre: respira. Que no avanza: se despliega.
+
+          Trabajo desde otro ritmo, uno que me permite acompañar los procesos sin violentarlos. El arte, la educación, la comunidad… todo lo que me importa necesita tiempo para enraizar, para florecer. La urgencia —esa trampa moderna— me aleja de lo esencial. Por eso, defender un tiempo habitable, sensible, lento, es también una forma de resistencia. De permanecer fiel a lo que creo.
+
+          Este tiempo más humano me permite escuchar, equivocarme, volver a intentar. Me permite estar presente de verdad, sin apuros ni simulacros. Es el tiempo de la confianza, de lo que no se puede forzar. El tiempo de las relaciones genuinas. Lo vivo cotidianamente en las escuelas rurales, en las residencias artísticas, en cada conversación al borde del fuego.
+
+          Para mí, el tiempo no es una medida. Es un modo de estar en el mundo. Y si hay algo que he aprendido en este oficio de sembrar belleza, es que todo lo valioso necesita espacio para crecer. Ese espacio se llama tiempo.
+        persona: "Pablo Carvacho Yáñez"
+        contexto: "Gestor cultural, Contuy, Queilen."
       04:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Acumulación de desilusiones en un cuerpo que se va haciendo hasta que está hecho y luego comienza a deshacerse."
+        persona: "Stefanella Costa Cordero"
+        contexto: "Psicóloga"
       05:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "En la naturaleza, el tiempo es una variable que dimensiona la ocurrencia de procesos que van desde el ciclo celular hasta la evolución. Distintos procesos ocurren en tiempos que pueden variar de unos pocos segundos a millones de años; una vida completa para un organismo como una hormiga macho transcurre en cuestión de días, mientras que para algunas especies de árboles significa miles de años, siendo testigos del paso de generación tras generación de otros seres vivos. Nuestra propia historia como especie humana en la Tierra, es tan solo una pequeña fracción de lo que lleva el desarrollo de la vida en el planeta."
+        persona: "Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo interactivo Mirador"
