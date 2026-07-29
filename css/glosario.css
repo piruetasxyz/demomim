@@ -13,3 +13,19 @@ body {
 .glosario-item {
     margin-bottom: 1.5rem;
 }
+
+.glosario-definicion {
+    margin-bottom: 1.5rem;
+}
+
+.glosario-imagen {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.glosario-firma {
+    font-size: 0.9rem;
+    color: #555;
+}
