@@ -1,11 +1,133 @@
 glosario:
-  - termino: "Acompañar"
-    definicion: "def"
-  - termino: "Regenerar"
-    definicion: "def"
-  - termino: "Sanar"
-    definicion: "def"
-  - termino: "Desarrollar"
-    definicion: "def"
-  - termino: "Bosque" 
-    definicion: "def"
+  # en el orden en que aparecen en la publicacion  
+  - pregunta: "¿Qué es lo regenerativo?"
+    concepto: "Regenerativo"
+    definiciones:
+      01:
+        texto: "Lo regenerativo es la condición sin qua non de la vida en este planeta, una que damos por sentada al mismo tiempo que subvaloramos. Implica algo que se daña, pierde o falta, pero que no puede ser destruido, porque la materia solo se transforma. Regenerar activa el movimiento, el cambio, la transformación, dónde tiempos múltiples se superponen para crear con lo que queda, energía, partículas, células, afectos, esperanzas, nuevas conexiones, asociaciones y formas para reconstruir la posibilidad."
+        persona: "Luisa Fernanda Villegas"
+        contexto: "Comisaria en Centro Nacional de Memoria Histórica, Colombia."
+      02:
+        texto: "Volver a engendrar a otros o a una misma, insistir con la vida."
+        persona: "Isabel Ibáñez"
+        contexto: " Madre, gestora cultural, licenciada en Historia y Teoría del Arte U de Chile"
+      03:
+        texto: " Lo regenerativo tiene que ver con esta nueva ola de mucha gente joven o aquella que ha llegado desde afuera para ser un aporte en cuanto a visibilizar de manera positiva todos los rasgos buenos y malos que hay dentro de un lugar. Para mí lo regenerativo es germinar, tiene que ver con mostrar y hacer crecer la semilla de la cultura y, en mi caso, todo lo que tiene que ver con Chiloé. Significa conservar y preservar aquello que saben las personas que se están muriendo."
+        persona: "Osvaldo Güineo"
+        contexto: "Artista textil, isla Cailin, Quellón."
+      04:
+        texto: " Regeneración es mantenernos activos y unidos como comunidad con el entorno natural, social y económico. En esta modernidad se asocia con los cambios de los sistemas públicos y que los chilotes esperamos sean para mejor. Debemos preservar nuestras culturas para el futuro y el presente de los niños, de los jóvenes y de quienes hoy son abuelos, y de todos quienes formaron parte de la construcción humana por medio del sentido, y de las enseñanzas que nos dejaron para tener un futuro y un buen presente. Hoy se puede gestionar esto por medio del arte, también con lo que hacemos con nuestras manos y con la música y más. Espero que lo regenerativo se mantenga y se viva. Hace falta en las galerías, en centros culturales, en comunidades. Es necesario invitar a las personas que no hacen cosas, pero que las valoran por medio de sus recuerdos."
+        persona: "Silvia Rivera"
+        contexto: "Artista chilota residente en Castro"
+      05:
+        texto: "Es la capacidad de la comunidad para sanar y fortalecer el territorio mediante prácticas que restauran la biodiversidad, revitalizan las tradiciones culturales y fomentan la cooperación entre sus miembros. Lo regenerativo, en este contexto, es un proceso que va más allá de la simple conservación."
+        persona: "Marcela Enriqueta Contreras Iturrieta"
+        contexto: "Artesana en lana, Contuy, Queilen"
+      06:
+        texto: >
+          Pienso lo regenerativo no como una moda ni como un eslogan, sino como una postura ética ante la vida. No me basta con no dañar, me interesa poder sanar, reparar, tejer de nuevo los hilos que se han roto entre las personas, los territorios y la naturaleza. Lo regenerativo, para mí, es una práctica de amor activo.
+
+          En lo que hago —ya sea en la creación artística, en el trabajo con comunidades o en el pensamiento curatorial— intento caminar con cuidado. Me mueve la idea de devolver más de lo que recibo. De nutrir el entorno que me acoge. Y también de mirar hacia atrás, de reconocer los saberes antiguos como caminos hacia lo nuevo. No hay regeneración sin memoria.
+
+          Lo regenerativo es una forma de relación. No se trata solo del suelo, del agua, del bosque. También tiene que ver con el lenguaje, con el afecto, con la forma en que nos vinculamos. Con la posibilidad de reencontrarnos con lo común, con lo que sostiene la vida y le da sentido.
+
+          Creo en procesos que no buscan solo resultados, sino transformación. Lo regenerativo es eso: un compromiso con lo que me rodea. Una forma de imaginar futuros fértiles, sin despegar los pies del barro. Una manera de decir que estoy aquí y que quiero cuidar y deseo dejar algo vivo después de mí.
+        persona: "Pablo Carvacho Yáñez"
+        contexto: "Gestor cultural, Contuy, Queilen"
+      07:
+        texto: "Son cambios positivos en lo biológico. Acá en Chiloé podemos decir que es la naturaleza, incluido el ser humano. Si cuidamos la mapu ñuke estaremos cuidando y regenerando nuestro pequeño universo, en lo humano, en la flora y la fauna."
+        persona: "Norma Hueicha"
+        contexto: "Lawentuchefe, sanadora por hierbas, Queilen"
+      08:
+        texto: "Lo regenerativo tiene algo de circular. Es lo que tiene la capacidad de volver a generar. Que es capaz de activar de nuevo un proceso que se había parado, que había retrocedido, o incluso que había perdido su cauce, haciendo así que este vuelva a iniciarse."
+        persona: "Elena Blesa"
+        contexto: "Mediadora, Investigadora y artista, responsable del Departamento de educación y Mediación de la Fundación Manifesta"
+      09:
+        texto: "Regenerar es tener otra oportunidad para tratar de recomponer lo que se ha destruido y las relaciones que se han interrumpido. En la piel, la regeneración ocurre después de que esta se ha lesionado. Primero el cuerpo reacciona con dolor, el tejido se inflama y se siente caliente, mientras las células del sistema inmune trabajan para eliminar posibles infecciones. Poco a poco se forma tejido nuevo, otras células migran hacia la herida para cubrirla, hasta que finamente el tejido se adapta y va recuperando su funcionalidad y apariencia normal. En la naturaleza ocurre algo similar, podríamos decir que el suelo es lesionado cuando pierde su vegetación y a los habitantes que la acompañan, es algo doloroso de observar. Sin embargo, este también tiene la posibilidad de regenerarse, adaptarse frente al daño y recuperar parte de su funcionalidad, incluso volver a alcanzar una apariencia “normal”. Pero ya sea en un bosque o en un dedo, la regeneración no está exenta de consecuencias y las cicatrices del daño sufrido nos recuerdan la importancia de cuidar y proteger lo que aún tenemos."
+        persona: "Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo Interactivo Mirador"
+      10:
+        texto: "Para acercarse a la pregunta por lo regenerativo es necesario comenzar por la palabra que está contenida dentro de ese concepto: generación. Esta me lleva al concepto de energía y, en mi caso, como soy ingeniero pienso principalmente en la electricidad cuando hablo de energía. De modo que hacer electricidad es lograr generar energía. Pero la regeneración es, en consecuencia, volver a generar. Cuando esa energía disminuye o se gasta, es posible, como el ave fénix, volver a generarla. Entonces, en términos más amplios, en el concepto de regeneración está la idea de que siempre es posible comenzar de nuevo."
+        persona: "Gabriel Rodríguez"
+        contexto: "Ingeniero, diplomático, exdirector Energía Ciencia y Tecnología e Innovación, Ministerio de RR.EE."
+      11:
+        texto: "Regeneración del colectivo, algunas especies vuelven, una y otra vez, a los mismos lugares en cada ciclo. Lo hicieron sus ancestros, y lo harán sus descendientes. Es un movimiento que parece guiado por una memoria colectiva, como si cada ser formara parte de un mismo cuerpo que recuerda. Unas fotos muestran a un grupo de golondrinas que, cada primavera, regresa puntualmente al mismo sitio: ocupan los rincones y aleros de un gran edificio —un hospital— llenándolo de vida y movimiento. Cada año las espero, porque su llegada me anuncia que ha comenzado un nuevo período. Aunque ellas no me conocen, yo sí las conozco."
+        persona: "Evelyn Álvarez"
+        contexto: "Terapeuta ocupacional"
+      12:
+        texto: "El verbo regenerar viene del latín regenerare y puede significar crear vida o dar nuevo ser a algo que se degeneró, restablecerlo o mejorarlo. Entiendo la vida como un flujo de energía que se va transformando. Así el paso de la vida a la muerte también se puede entender como la muerte alimenta a la vida. Por lo tanto, la regeneración es comprender que todo es transformación. Esto es muy evidente en el suelo, necesita haber muerte que se transforma en nutriente y eso permite que la vida progrese, que cumpla su ciclo y que vuelva a morir. Una espiral de transformación. Por esa razón uno no puede quedarse solo con la definición de regenerar como dar o crear vida, porque parte de esa acción involucra a la muerte. De ese modo hablar de regeneración es hablar de esta muerte, pero como parte de este ciclo."
+        persona: "Andrea Barrueto"
+        contexto: "Ingeniera comercial, diseñadora estratégica, coach en Design Thinking"
+      13:
+        texto:  >
+          Soñé que volaba, sin peso, sin miedo,
+          la luna en mi frente, jardín en el dedo.
+
+          Mis huesos susurran canciones siniestras,
+          duermen con gusanos, despiertan con bestias.
+
+          Es difícil para mí no caer en divagación,
+          sobre todo si rima con regeneración,
+
+          me gustan las rimas y el hip-hop,
+          también mi oncóloga, non-stop,
+
+          me puso un catéter: generación / degeneración,
+          Saliendo temprano del pabellón
+
+          Jasón y Medea, oh yeah
+          — hip-hop en silla de ruedas,
+          hombre amputado de una pierna
+          que bella rima con eterna
+
+          regeneración / degeneración
+          Sigo de largo en divagación
+
+          Te cortan un brazo: crece otro
+          casi rima con logro,
+
+          te cortan una pierna: crece otra
+          qué pena... rima con derrota.
+        persona: "Benjamín Carvallo"
+        contexto: "Escritor y tarotista"
+      14:
+        texto: False
+        imagen: "regenerativo-14.png"
+        persona: "Mairú"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+      15:
+        texto: False
+        imagen: "regenerativo-15.png"
+        persona: "Dante"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+      16:
+        texto: False
+        imagen: "regenerativo-16.png"
+        persona: "Amaranta"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+      17:
+        texto: False
+        imagen: "regenerativo-17.png"
+        persona: "Camilo"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+      18:
+        texto: False
+        imagen: "regenerativo-18.png"
+        persona: "Gaspar"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+      19:
+        texto: False
+        imagen: "regenerativo-19.png"
+        persona: "Fernando"
+        contexto: "Cuarto básico de la Escuela Casa azul"
+  - pregunta: "¿Qué es lo afecto?"
+    concepto: "Afecto"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
