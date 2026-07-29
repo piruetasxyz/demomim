@@ -193,62 +193,66 @@ glosario:
     concepto: "Diversidad, Biodiversidad"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: >
+          Dícese del requisito fundamental de sistemas humanos y no-humanos para lograr dar respuesta a los cambios bruscos o paulatinos que se producen en el ambiente con el correr del tiempo; condición habilitante para la regeneración de tales sistemas.
+
+          La evolución/regeneración de lo vivo en entornos cambiantes—y todos los son—requiere de un reservorio de diferencias en los individuos de las especies que lo cohabitan; una comunidad diversa asegura un conjunto de características, habilidades y competencias distintas para responder y, finalmente, dar solución, a los nuevos desafíos que impone el cambio permanente. La igualdad de aquello que puede individualizarse dentro del sistema ofrece una única posibilidad de respuesta a un problema nuevo. El fracaso de esa única opción, termina toda esperanza de adaptación, evolución y regeneración del sistema. Por ende, extinción y muerte son consecuencias lógicas de la ausencia de diversidad.
+        persona: "Rocío Ángulo"
+        contexto: "Doctora en Psicología, Instituto de Ciencias Sociales U. de O´Higgins"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "La biodiversidad o diversidad biológica es la diversidad de la vida en múltiples dimensiones, reflejadas no solo a nivel de las especies de plantas, animales, hongos o microorganismos que existen, sino que abarca desde la diversidad genética en una población de seres vivos, hasta la diversidad de ecosistemas que encontramos en el planeta. La biodiversidad contribuye a la resiliencia de los ecosistemas, es decir, la capacidad de recuperarse o quizás regenerarse después de ser perturba dos. La variabilidad de organismos, rasgos y estrategias de vida o formas de ser y habitar un ecosistema, es similar a tener inversiones económicas de distinta naturaleza. Ante una crisis, si cae una, el resto puede continuar y la pérdida no es total, con el tiempo incluso se podría recuperar la inversión inicial."
+        persona: "Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo Interactivo Mirador"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Es la diversidad de seres vivos que, en su interrelación, conforman la biosfera. Incluye la variabilidad presente dentro de un individuo (genética), entre individuos de la misma especie (poblaciones), entre especies (comunidades), pero también en ecosistemas y paisajes. Nos interesa concebir la biodiversidad desde una aproximación biocultural, que remite a un diálogo y evolución conjunta de diversidad biológica y cultural expresada en los conocimientos, rituales, lenguas, formas de manejo y relaciones simbólicas con la naturaleza y sus transformaciones. Es así como la biodiversidad se puede entender como una memoria viva en continua adaptación y movimiento."
+        persona: "Maya Errázuriz, Bernardita Pérez, Sebastián Carrasco y Tomás Altamirano"
+        contexto: "Fundación Mar Adentro"
   - pregunta: "¿Qué es la ecología?"
     concepto: "Ecología"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "La ecología es la ciencia que estudia cómo los seres vivos —animales, plantas, hongos y microorganismos— se relacionan entre sí y con el lugar donde viven. Esto incluye distintos factores de su entorno natural, como el aire, el agua, el suelo, la luz del sol y la temperatura entre otros. Por ejemplo, cuando observamos cómo los pájaros construyen sus nidos en los árboles, cómo las abejas polinizan las flores, o cómo un bosque cambia con las estaciones del año, estamos viendo interacciones ecológicas en acción. Incluso en una ciudad, cuando vemos cómo las palomas, los perros callejeros o las plantas en una plaza se adaptan al entorno urbano, también estamos observando ecología. La ecología nos ayuda a entender cómo y por qué los organismos están donde están y en qué cantidad. Cómo las interacciones en la naturaleza determinan la estructura y el funcionamiento de los ecosistemas y por qué es importante cuidar el equilibrio entre todos los seres vivos y su ambiente."
+        persona: "Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo Interactivo Mirador"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Ciencia que estudia el oikos o “la casa” (naturaleza) y se dedica al estudio de las interacciones entre vida, materia y ambiente para analizar cómo estas interacciones determinan la distribución, abundancia y evolución de los organismos en el tiempo y el espacio. Entendemos por ecología un campo dinámico y expansivo que invita a repensar nuestras formas de observar, habitar y narrar el mundo, integrando aproximaciones basadas en la atención sensorial, la comprensión a través de la experiencia y la observación continua, para promover una forma de conocimiento situada y conectada con el cambio ambiental global. Esta visión desafía la idea de que la naturaleza es algo externo, y reconoce la agencia de lo más-que-humano en un mundo profundamente  interconectado."
+        persona: "Maya Errázuriz, Bernardita Pérez, Sebastián Carrasco y Tomás Altamirano"
+        contexto: "Fundación Mar Adentro"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Ideología que demuestra preocupación por el daño de la humanidad al planeta, por el daño a los seres vivos, la intervención en ecosistemas y la extracción de recursos naturales. Algunas personas de pensamiento ecologista dedican parte de su tiempo al activismo y otros solo hacen campaña en redes sociales. Muchos ecologistas también se unen al movimiento vegano o vegetariano por lo contaminante y cruel que es la industria de la carne. En ocasiones la ecología se opone a algunas actividades económicas y a muchos empresarios y políticos no les gusta mucho eso."
+        persona: "Dania Santelices"
+        contexto: "Estudiante universitaria, narradora"
   - pregunta: "¿Qué es ecosistema?"
     concepto: "Ecosistema"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Un ecosistema es una unidad donde plantas, animales, hongos y microorganismos, viven e interactúan entre ellos y con el entorno que los rodea, de forma dinámica, intercambiando energía y materia. Un bosque, un lago, una playa o incluso un jardín pueden ser ecosistemas. En cada uno, los seres vivos dependen unos de otros. Las plantas necesitan del sol y del agua para crecer, los animales se alimentan de plantas o de otros animales, y los microorganismos ayudan a descomponer restos orgánicos para que los nutrientes vuelvan al suelo. Todo está conectado. Si se altera algún factor del ecosistema, como la temperatura, la cantidad de agua o la presencia de una especie, puede afectar a todo lo demás."
+        persona: "Carolina Saavedra"
+        contexto: "Encargada Programa Cultura Natural, Museo Interactivo Mirador"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Un patio/ Un cielo transparente/ Una maquina cubierta de musgo/ Palabra de cinco silabas y sin H/ Una forma de disciplina/ Una forma de ritmo/ Un invento del siglo XX/ El amor que nunca acaba/ Una muerte sin aviso/ Todas de acuerdo/ Todos en desacuerdo/ Relaciones que se relacionan/ Mascotas sin amo/ Amistades sin familia/ Una familia en paz/ Paz perpetua"
+        persona: "Cristóbal Bianchi"
+        contexto: "Poeta, psicólogo, miembro del Colectivo Casagrande responsable por intervenir con poesía ciudades bombardeadas"
   - pregunta: "¿Qué es escuchar?"
     concepto: "Escuchar"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Capacidad para reaccionar al entorno de manera empática. La escucha es un proceso dialógico, es el paso previo a una vuelta a la acción e implica, necesariamente, una relación con otres y con el contexto, una toma de posición en relación a. Es un proceso corporal generalizado, no necesariamente atento ni racional, tiene algo de incontrolable."
+        persona: "Elena Blesa"
+        contexto: "Mediadora, investigadora y artista, responsable del departamento de educación y mediación de la Fundación Manifesta"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Escuchar es una forma encarnada de atención, una práctica activa de apertura hacia el entorno sonoro y hacia una misma. No se trata solo de registrar estímulos acústicos, sino de habitar el sonido, dejarse afectar por él y permitir que revele dimensiones invisibles del espacio, del cuerpo y del tiempo. Escuchar es una disposición a lo poroso, a lo incierto, a lo que aún no tiene forma. En este gesto se da una sintonía entre percepción, memoria, vibración y cuerpo. Escucharse, en tanto, implica una forma reflexiva y autoafectiva de presencia. Es un modo de estar en relación consigo misma desde el sonido: percibir el eco interno de la experiencia, los desplazamientos del cuerpo en el espacio, las resonancias afectivas, los silencios que revelan y las intensidades que configuran identidad. Escucharse es también prestar atención a lo que se despliega en la práctica —el error, la duda, la improvisación— como fuentes de conocimiento. Ambas dimensiones —escuchar y escucharse— se entrelazan como modos de habitar el mundo desde la percepción. Porque en última instancia, escuchar y escucharse son una misma corriente, un movimiento que nos instala en el presente y nos permite ser testigos de nuestra propia existencia resonando con el mundo."
+        persona: "Valentina Maza"
+        contexto: "Artista"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Escuchar es una forma de conocer el mundo a partir de la audición. Esta forma alternativa de acceso al conocimiento, implica una experiencia situada en un contexto específico y una temporalidad extendida en una secuencia de episodios sonoros. En ese sentido, escuchar implica observar el tiempo pasar, y también implica una pausa a lo racional para darle cabida a la experiencia sensorial."
+        persona: "Sofía Balbontín"
+        contexto: "Artista y Arquitecta, Valparaíso"
       04:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: False
+        imagen: "escuchar-04.png"
+        persona: "Felipe Cruz"
+        contexto: "Cuarto básico de la Escuela Casa azul"
   - pregunta: "¿Qué es herida?"
     concepto: "Herida"
     definiciones:
