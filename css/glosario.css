@@ -4,9 +4,12 @@ body {
     background: #ffffff;
     color: #000;
     margin: 0;
-    overflow: hidden;
 }
 
-canvas {
-    display: block;
+#divGlosario {
+    padding: 2rem;
+}
+
+.glosario-item {
+    margin-bottom: 1.5rem;
 }
