@@ -253,55 +253,68 @@ glosario:
     concepto: "Herida"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: " La herida como tal tiene que ver con todo un aspecto político y social que romantiza y precariza lo que es ser campesino y que muchas veces se nos olvida a los que somos de sectores insulares; solo aparecemos en estos programas que denostan nuestras vidas y romantizan la pobreza."
+        persona: "Osvaldo Güineo"
+        contexto: "Artista textil, isla Cailin, Quellón"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: >
+          Herida es una abertura que es hecha en la piel o en el espí-ritu de un ser viviente por medio de un trauma, golpe o corte.
+
+          Trae atrás de si una marca, una cicatriz que es visible por otro ser o en el reflejo que lo dan los años.
+
+          La herida, por medio de una magia, que solo los biólogos pueden explicar, se cura y se cierra.
+
+          Las heridas más profundas permanecen y son difíciles de borrar. Las heridas superficiales son borradas de la piel como con un soplo de vida.
+
+          Las heridas en el corazón usualmente quedan marcadas para toda la vida.
+
+          Me imagino la herida como un surco que se la hace a la tierra, como si uno quisiera sembrar algo.
+
+          Las heridas sirvan para recordar algo importante. Por eso algunos le causan heridas a otro ser, por el solo hecho de entrar en su memoria, en sus recuerdos y no quedar olvidados, como si nada importara.
+        persona: "Anibal Rocha"
+        contexto: "Artista visual, grabador, Castro, Chiloé"
   - pregunta: "¿Qué es muerte?"
     concepto: "Muerte"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "La muerte es cuando las estrellas dejan de quemar hidrógeno, o cuando las galaxias dejan de formar estrellas."
+        persona: "Manuel Solimano"
+        contexto: "Estudiante Doctorado Astrofísica UDP"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Dícese del agotamiento irreversible de los reservorios de diversidad salvaje."
+        persona: "Rocío Angulo"
+        contexto: "Doctora en Psicología. Instituto de Ciencias Sociales U. de O´Higgins"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "La muerte es un ejemplo o expresión de lo regenerativo, aunque parezca que la posibilidad deja de existir, en realidad la muerte es solo transformación. Cada ser con la capacidad de morir se transforma en materia orgánica que posibilita otras vidas, que regeneran la vida misma. La transformación no es solo material, la muerte empuja la plasticidad del cerebro, crea nuevas versiones de una misma y de las otras, a partir de recuerdos, crea nuevas perspectivas y comprensiones. Y aunque es bello y poético, la muerte también genera ira y venganza, crea identidades cómo la de la víctima y nuevos ciclos y versiones de la historia."
+        persona: "Luisa Fernanda Villegas"
+        contexto: "Comisaria en Centro Nacional de Memoria Histórica, Colombia"
       04:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Concebir la muerte de manera regenerativa es nunca más sentir soledad."
+        persona: "Guille Mongan"
+        contexto: "Academicx, artista. Coordinador de la RedCSur y parte del colectivo de activismo artístico Serigrafistas Queer"
       05:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "La muerte es una meta por muchas temida y para algunas anhelada ¿qué sentido tendría la vida si no llegara en algún momento la muerte, si tuviéramos que persistir eternamente en las nimiedades del tiempo presente? Perderíamos la memoria, la cordura y el sentido. Dolorosa y gloriosa, la muerte es la condición necesaria de la vida, es la paradoja fundamental."
+        persona: "Suman Saha."
+        contexto: "Estudiante de postdoctorado en Astronomía, UDP."
       06:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Seguir, inconscientemente retozando en El Problema."
+        persona: "Isabel Ibañez"
+        contexto: "Madre, gestora cultural, licenciada en Historia y Teoría del Arte U de Chile"
   - pregunta: "¿Qué es naturaleza?"
     concepto: "Naturaleza"
     definiciones:
       01:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Naturaleza es lo que percibimos del universo, incluso si no refleja la verdad."
+        persona: "Suman Saha"
+        contexto: "Estudiante de postdoctorado en Astronomía UDP"
       02:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Origen que nos constituye."
+        persona: "Cristina Echeverría Whipple"
+        contexto: "Paisajista"
       03:
-        texto: ""
-        persona: ""
-        contexto: ""
+        texto: "Itrofil Mongen son todas las diversidades en su conjunto, así como el humano mira los elementos también nos entregan su mirada, nos afectan y nos transfieren fuerzas que nos permiten decidir asuntos estando frente a ellas. Los antepasados también miran y nos ponen asuntos al frente todo el tiempo, ellos también son parte de la naturaleza."
+        persona: "Francisco Huichaqueo"
+        contexto: "Artista visual y curador mapuche"
   - pregunta: "¿Qué es putrefacción?"
     concepto: "Putrefacción"
     definiciones:
