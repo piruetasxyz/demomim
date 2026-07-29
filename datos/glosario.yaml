@@ -120,7 +120,7 @@ glosario:
         imagen: "regenerativo-19.png"
         persona: "Fernando"
         contexto: "Cuarto básico de la Escuela Casa azul"
-  - pregunta: "¿Qué es lo afecto?"
+  - pregunta: "¿Qué es afecto?"
     concepto: "Afecto"
     definiciones:
       01:
@@ -132,3 +132,251 @@ glosario:
         imagen: "afecto-02.png"
         persona: "Estudiante"
         contexto: "Cuarto básico de la Escuela Casa azul"
+  - pregunta: "¿Qué es bienestar?"
+    concepto: "Bienestar"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+      04:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es comunidad?"
+    concepto: "Comunidad"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+      04:
+        texto: ""
+        persona: ""
+        contexto: ""
+      05:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es conservar?"
+    concepto: "Conservar"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es la diversidad o la biodiversidad?"
+    concepto: "Diversidad, Biodiversidad"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es la ecología?"
+    concepto: "Ecología"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es ecosistema?"
+    concepto: "Ecosistema"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es escuchar?"
+    concepto: "Escuchar"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+      04:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es herida?"
+    concepto: "Herida"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es muerte?"
+    concepto: "Muerte"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+      04:
+        texto: ""
+        persona: ""
+        contexto: ""
+      05:
+        texto: ""
+        persona: ""
+        contexto: ""
+      06:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es naturaleza?"
+    concepto: "Naturaleza"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es putrefacción?"
+    concepto: "Putrefacción"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es resolver juntas?"
+    concepto: "Resolver juntas"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es salvaje o indómito?"
+    concepto: "Salvaje, Indómito"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es sustentable?"
+    concepto: "Sustentable"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es territorio?"
+    concepto: "Territorio"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+  - pregunta: "¿Qué es tiempo?"
+    concepto: "Tiempo"
+    definiciones:
+      01:
+        texto: ""
+        persona: ""
+        contexto: ""
+      02:
+        texto: ""
+        persona: ""
+        contexto: ""
+      03:
+        texto: ""
+        persona: ""
+        contexto: ""
+      04:
+        texto: ""
+        persona: ""
+        contexto: ""
+      05:
+        texto: ""
+        persona: ""
+        contexto: ""
