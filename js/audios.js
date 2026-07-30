@@ -1,8 +1,16 @@
+const canvasGoo = document.getElementById("canvas-goo");
+const gooCtx = canvasGoo.getContext("2d");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resize() {
+  canvasGoo.width = window.innerWidth;
+  canvasGoo.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
 
 // --- Audio ---
 let players = [];
@@ -18,24 +26,50 @@ async function initAudio() {
   p1.connect(analyser);
   p2.connect(analyser);
 
+  // buffers decode in the background after the Player constructor
+  // returns, so a fast first click can otherwise land before either
+  // track is actually ready to play
+  await Tone.loaded();
+
   players = [p1, p2];
+
+  blobs.forEach(blob => {
+    const player = players[blob.playerIndex];
+    // fires both on manual pause and on natural end of the track;
+    // `pausing` tells the two cases apart so a natural end resets
+    // playback to the start, while a manual pause keeps the offset
+    player.onstop = () => {
+      if (blob.pausing) {
+        blob.pausing = false;
+      } else {
+        blob.isPlaying = false;
+        blob.offset = 0;
+      }
+    };
+  });
 }
 
 // --- Blob ---
 class Blob {
-  constructor(x, y, radius, color, label, playerIndex) {
+  constructor(x, y, radius, hue, label, playerIndex) {
     this.x = x;
     this.y = y;
     this.baseRadius = radius;
     this.radius = radius;
-    this.color = color;
+    this.hue = hue;
     this.label = label;
     this.playerIndex = playerIndex;
     this.noiseOffset = Math.random() * 1000;
+
+    this.isPlaying = false;
+    this.pausing = false;
+    this.offset = 0;
+    this.startTime = 0;
   }
 
-  draw(time) {
-    ctx.beginPath();
+  // blurred goo shape, same wobbly-outline math as before
+  drawGoo(time) {
+    gooCtx.beginPath();
 
     const points = 24;
     for (let i = 0; i <= points; i++) {
@@ -46,15 +80,17 @@ class Blob {
       const px = this.x + Math.cos(angle) * r;
       const py = this.y + Math.sin(angle) * r;
 
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
+      if (i === 0) gooCtx.moveTo(px, py);
+      else gooCtx.lineTo(px, py);
     }
 
-    ctx.closePath();
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    gooCtx.closePath();
+    gooCtx.fillStyle = `hsla(${this.hue}, 80%, 70%, 0.9)`;
+    gooCtx.fill();
+  }
 
-    // --- TEXT ---
+  // crisp label, drawn unblurred on top of the goo layer
+  drawLabel() {
     ctx.fillStyle = "#000";
     ctx.font = "700 16px 'area', sans-serif";
     ctx.textAlign = "center";
@@ -63,7 +99,7 @@ class Blob {
   }
 
   update(audioLevel) {
-    this.radius = this.baseRadius + audioLevel * 80;
+    this.radius = this.baseRadius + (this.isPlaying ? audioLevel * 80 : 0);
   }
 
   isInside(mx, my) {
@@ -72,56 +108,91 @@ class Blob {
     return Math.sqrt(dx * dx + dy * dy) < this.radius;
   }
 
-  play() {
-    players[this.playerIndex].start();
+  toggle() {
+    const player = players[this.playerIndex];
+    if (!player.loaded) return;
+
+    if (this.isPlaying) {
+      const elapsed = Tone.now() - this.startTime;
+      this.offset += elapsed;
+      if (this.offset >= player.buffer.duration) this.offset = 0;
+
+      this.pausing = true;
+      player.stop();
+      this.isPlaying = false;
+    } else {
+      this.startTime = Tone.now();
+      player.start(undefined, this.offset);
+      this.isPlaying = true;
+    }
   }
 }
 
 // --- Create blobs ---
 const blobs = [
-  new Blob(canvas.width * 0.3, canvas.height / 2, 70, "#ffffff", "afecto", 0),
-  new Blob(canvas.width * 0.7, canvas.height / 2, 70, "#ffffff", "regenerar", 1),
+  new Blob(canvas.width * 0.3, canvas.height / 2, 70, hashColor("afecto"), "afecto", 0),
+  new Blob(canvas.width * 0.7, canvas.height / 2, 70, hashColor("regenerar"), "regenerar", 1),
 ];
 
-// --- Dragging state ---
+// --- Dragging vs. click state (click toggles play/pause, drag just moves) ---
 let draggingBlob = null;
+let startX, startY, startTime, moved;
+let audioReady = null;
 
-// --- Mouse events ---
-canvas.addEventListener("mousedown", async (e) => {
-  if (players.length === 0) await initAudio();
+canvas.addEventListener("pointerdown", (e) => {
+  // fire-and-await-later: kicking this off without awaiting means a
+  // quick first click still finds draggingBlob set below in time,
+  // instead of the whole handler stalling on init and missing pointerup
+  if (players.length === 0 && !audioReady) audioReady = initAudio();
 
   const rect = canvas.getBoundingClientRect();
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
 
-  for (let blob of blobs) {
+  for (const blob of blobs) {
     if (blob.isInside(mx, my)) {
       draggingBlob = blob;
-      blob.play(); // play on grab
+      startX = e.clientX;
+      startY = e.clientY;
+      startTime = Date.now();
+      moved = false;
       break;
     }
   }
 });
 
-canvas.addEventListener("mousemove", (e) => {
+canvas.addEventListener("pointermove", (e) => {
   if (!draggingBlob) return;
 
   const rect = canvas.getBoundingClientRect();
   draggingBlob.x = e.clientX - rect.left;
   draggingBlob.y = e.clientY - rect.top;
+
+  if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) moved = true;
 });
 
-canvas.addEventListener("mouseup", () => {
+canvas.addEventListener("pointerup", async () => {
+  const blob = draggingBlob;
   draggingBlob = null;
+
+  if (!blob || moved || Date.now() - startTime >= 500) return;
+
+  if (audioReady) {
+    await audioReady;
+    audioReady = null;
+  }
+
+  blob.toggle();
 });
 
-canvas.addEventListener("mouseleave", () => {
+canvas.addEventListener("pointerleave", () => {
   draggingBlob = null;
 });
 
 // --- Animation ---
 function animate(time) {
   requestAnimationFrame(animate);
+  gooCtx.clearRect(0, 0, canvasGoo.width, canvasGoo.height);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   let audioLevel = 0;
@@ -133,14 +204,18 @@ function animate(time) {
 
   blobs.forEach(blob => {
     blob.update(audioLevel);
-    blob.draw(time * 0.002);
+    blob.drawGoo(time * 0.002);
+    blob.drawLabel();
   });
 }
 
 animate(0);
 
-// --- Resize ---
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+// --- Util ---
+function hashColor(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = str.charCodeAt(i) + ((h << 5) - h);
+  }
+  return h % 360;
+}

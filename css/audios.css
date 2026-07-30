@@ -6,5 +6,23 @@ body {
 }
 
 canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: block;
+}
+
+/* blurred layer underneath: creates the gooey/metaball blob look,
+   same trick as css/glosario.css (blur + contrast + saturate) */
+#canvas-goo {
+  filter: blur(18px) contrast(180%) saturate(140%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* crisp layer on top: labels only, plus it owns pointer events */
+#canvas {
+  z-index: 2;
 }
