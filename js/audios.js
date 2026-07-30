@@ -13,28 +13,28 @@ resize();
 window.addEventListener("resize", resize);
 
 // --- Audio ---
+let entries = [];
 let players = [];
 let analyser;
 
 async function initAudio() {
   await Tone.start();
 
-  const p1 = new Tone.Player("./../recursos/afecto-natalia.mp3").toDestination();
-  const p2 = new Tone.Player("./../recursos/regenerar-natalia.mp3").toDestination();
-
   analyser = new Tone.Analyser("waveform", 64);
-  p1.connect(analyser);
-  p2.connect(analyser);
+
+  players = entries.map(entry => {
+    const player = new Tone.Player(`./../recursos/${entry.archivo}`).toDestination();
+    player.connect(analyser);
+    return player;
+  });
 
   // buffers decode in the background after the Player constructor
-  // returns, so a fast first click can otherwise land before either
+  // returns, so a fast first click can otherwise land before the
   // track is actually ready to play
   await Tone.loaded();
 
-  players = [p1, p2];
-
-  blobs.forEach(blob => {
-    const player = players[blob.playerIndex];
+  blobs.forEach((blob, i) => {
+    const player = players[i];
     // fires both on manual pause and on natural end of the track;
     // `pausing` tells the two cases apart so a natural end resets
     // playback to the start, while a manual pause keeps the offset
@@ -110,7 +110,7 @@ class Blob {
 
   toggle() {
     const player = players[this.playerIndex];
-    if (!player.loaded) return;
+    if (!player || !player.loaded) return;
 
     if (this.isPlaying) {
       const elapsed = Tone.now() - this.startTime;
@@ -128,11 +128,36 @@ class Blob {
   }
 }
 
-// --- Create blobs ---
-const blobs = [
-  new Blob(canvas.width * 0.3, canvas.height / 2, 70, hashColor("afecto"), "afecto", 0),
-  new Blob(canvas.width * 0.7, canvas.height / 2, 70, hashColor("regenerar"), "regenerar", 1),
-];
+// --- Create blobs, one per audio entry, arranged in a grid sized to fit them all ---
+let blobs = [];
+
+function crearBlobs(entries) {
+  const n = entries.length;
+  const cols = Math.ceil(Math.sqrt(n));
+  const rows = Math.ceil(n / cols);
+
+  const padding = 80;
+  const cellWidth = (canvas.width - padding * 2) / cols;
+  const cellHeight = (canvas.height - padding * 2) / rows;
+  const radius = Math.min(60, Math.max(30, Math.min(cellWidth, cellHeight) * 0.32));
+
+  return entries.map((entry, i) => {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+
+    const x = padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2;
+    const y = padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2;
+
+    return new Blob(x, y, radius, hashColor(entry.concepto), entry.persona, i);
+  });
+}
+
+fetch("./../datos/audios.yaml")
+  .then(r => r.text())
+  .then(t => {
+    entries = jsyaml.load(t).audios;
+    blobs = crearBlobs(entries);
+  });
 
 // --- Dragging vs. click state (click toggles play/pause, drag just moves) ---
 let draggingBlob = null;
@@ -143,7 +168,7 @@ canvas.addEventListener("pointerdown", (e) => {
   // fire-and-await-later: kicking this off without awaiting means a
   // quick first click still finds draggingBlob set below in time,
   // instead of the whole handler stalling on init and missing pointerup
-  if (players.length === 0 && !audioReady) audioReady = initAudio();
+  if (players.length === 0 && !audioReady && entries.length > 0) audioReady = initAudio();
 
   const rect = canvas.getBoundingClientRect();
   const mx = e.clientX - rect.left;
