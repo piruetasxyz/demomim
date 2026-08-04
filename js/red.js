@@ -435,6 +435,9 @@ function buildTemplatesUI() {
     group.appendChild(btn);
     bar.appendChild(group);
   });
+
+  // Move the randomize button after the template buttons it was inserted before
+  bar.appendChild(document.getElementById('btn-randomize').closest('.control-group'));
 }
 
 // ── Init & data loading ───────────────────────────────────────────────────────
