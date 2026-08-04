@@ -5,10 +5,11 @@
 const SVG_NS   = 'http://www.w3.org/2000/svg';
 const LINE_PAD = 5;   // px gap between line tip and label edge
 
+const FONT_FAMILY = "'Mirador', sans-serif";
+const LINE_WEIGHT = 1.6; // fixed at the midpoint of the former 0.2–3 slider range
+
 const DEFAULTS = {
-  lineWeight:  0.8,
   lineOpacity: 0.35,
-  fontFamily:  'Inter, sans-serif',
   fontSize:    10,
 };
 
@@ -377,7 +378,7 @@ function buildScene() {
     const t   = svgEl('text', {
       x:                   pos.x,
       y:                   pos.y,
-      'font-family':       state.fontFamily,
+      'font-family':       FONT_FAMILY,
       'font-size':         `${state.fontSize}px`,
       'font-weight':       '500',
       fill:                getNodeColor(node.hierarchy),
@@ -411,7 +412,7 @@ function buildScene() {
   data.edges.forEach(({ source, target }) => {
     const lineEl = svgEl('line', {
       stroke:           '#999',
-      'stroke-width':   state.lineWeight,
+      'stroke-width':   LINE_WEIGHT,
       'stroke-opacity': state.lineOpacity,
       'stroke-linecap': 'round',
     });
@@ -565,35 +566,22 @@ function bindDrag() {
 
 function updateLineAttrs() {
   edgeElements.forEach(({ el }) => {
-    el.setAttribute('stroke-width',   state.lineWeight);
+    el.setAttribute('stroke-width',   LINE_WEIGHT);
     el.setAttribute('stroke-opacity', state.lineOpacity);
   });
 }
 
 function syncControlsToState() {
-  document.getElementById('line-weight').value = state.lineWeight;
   document.getElementById('line-opacity').value = state.lineOpacity;
-  document.getElementById('font-family').value  = state.fontFamily;
   document.getElementById('font-size').value    = state.fontSize;
 }
 
 function bindControls() {
   const $ = id => document.getElementById(id);
 
-  $('line-weight').addEventListener('input', e => {
-    state.lineWeight = parseFloat(e.target.value);
-    updateLineAttrs();
-  });
-
   $('line-opacity').addEventListener('input', e => {
     state.lineOpacity = parseFloat(e.target.value);
     updateLineAttrs();
-  });
-
-  $('font-family').addEventListener('change', e => {
-    state.fontFamily = e.target.value;
-    // Rebuild scene to capture new label sizes; positions are preserved
-    buildScene();
   });
 
   $('font-size').addEventListener('input', e => {
@@ -688,7 +676,7 @@ async function loadData() {
   } catch (err) {
     errEl.textContent = `No se pudo cargar data.yaml — ${err.message}`;
     errEl.style.display = 'block';
-    console.error('[red-generativa]', err);
+    console.error('[red]', err);
   }
 }
 
