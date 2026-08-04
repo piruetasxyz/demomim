@@ -27,12 +27,6 @@
 
   <svg id="main-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Visualización de constelación"></svg>
 
-  <!-- Templates panel — shown/hidden by the Templates button -->
-  <div id="templates-panel" class="templates-panel" hidden>
-    <span class="templates-panel-label">Visualizaciones</span>
-    <div id="templates-grid" class="templates-grid"></div>
-  </div>
-
   <div id="control-bar" class="control-bar" role="toolbar" aria-label="Controles de visualización">
 
     <div class="control-group">
@@ -44,10 +38,7 @@
       <button id="btn-randomize" type="button">Aleatorio</button>
     </div>
 
-    <!-- pushed to right via margin-left: auto on its .control-group -->
-    <div class="control-group control-group--right">
-      <button id="btn-templates" type="button" class="btn-templates">Plantillas ▾</button>
-    </div>
+    <!-- template buttons injected here by buildTemplatesUI() -->
 
   </div>
 

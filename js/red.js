@@ -153,10 +153,10 @@ function layoutCaos(W, H, ns) {
 // ── Template registry ─────────────────────────────────────────────────────────
 
 const TEMPLATES = [
-  { id: 'constellation', label: 'Constelación', desc: 'peso → izquierda', fn: layoutConstellation },
-  { id: 'river',         label: 'Río',           desc: 'flujo vertical',  fn: layoutRiver         },
-  { id: 'cloud',         label: 'Nube',          desc: 'racimo gaussiano',fn: layoutCloud         },
-  { id: 'caos',          label: 'Caos',          desc: 'dispersión libre',fn: layoutCaos          },
+  { id: 'constellation', label: 'Constelación', fn: layoutConstellation },
+  { id: 'river',         label: 'Río',           fn: layoutRiver         },
+  { id: 'cloud',         label: 'Nube',          fn: layoutCloud         },
+  { id: 'caos',          label: 'Caos',          fn: layoutCaos          },
 ];
 
 // ── Line clipping ─────────────────────────────────────────────────────────────
@@ -339,9 +339,9 @@ function applyTemplate(id) {
   data.nodes.forEach(n => {
     if (basePositions[n.id]) positions[n.id] = { ...basePositions[n.id] };
   });
-  // Update active tile highlight
-  document.querySelectorAll('.template-tile').forEach(tile => {
-    tile.classList.toggle('active', tile.dataset.templateId === id);
+  // Update active button highlight
+  document.querySelectorAll('.template-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.templateId === id);
   });
 }
 
@@ -414,41 +414,26 @@ function bindControls() {
     const tpl = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
     applyTemplate(tpl.id);
   });
-
-  // Templates panel toggle
-  $('btn-templates').addEventListener('click', () => {
-    const panel = $('templates-panel');
-    const btn   = $('btn-templates');
-    panel.hidden = !panel.hidden;
-    btn.textContent = panel.hidden ? 'Plantillas ▾' : 'Plantillas ▴';
-    btn.classList.toggle('open', !panel.hidden);
-  });
 }
 
 // ── Templates UI ──────────────────────────────────────────────────────────────
 
 function buildTemplatesUI() {
-  const grid = document.getElementById('templates-grid');
-  grid.innerHTML = '';
+  const bar = document.getElementById('control-bar');
   TEMPLATES.forEach(tpl => {
-    const tile = document.createElement('button');
-    tile.type = 'button';
-    tile.className = 'template-tile';
-    tile.dataset.templateId = tpl.id;
-    if (tpl.id === activeTemplate) tile.classList.add('active');
-    tile.innerHTML =
-      `<span class="tile-name">${tpl.label}</span>` +
-      `<span class="tile-desc">${tpl.desc}</span>`;
-    tile.addEventListener('click', () => {
-      applyTemplate(tpl.id);
-      // Close panel after selection
-      const panel = document.getElementById('templates-panel');
-      const btn   = document.getElementById('btn-templates');
-      panel.hidden = true;
-      btn.textContent = 'Plantillas ▾';
-      btn.classList.remove('open');
-    });
-    grid.appendChild(tile);
+    const group = document.createElement('div');
+    group.className = 'control-group';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'template-btn';
+    btn.dataset.templateId = tpl.id;
+    btn.textContent = tpl.label;
+    if (tpl.id === activeTemplate) btn.classList.add('active');
+    btn.addEventListener('click', () => applyTemplate(tpl.id));
+
+    group.appendChild(btn);
+    bar.appendChild(group);
   });
 }
 
