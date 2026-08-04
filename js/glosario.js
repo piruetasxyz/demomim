@@ -1,15 +1,26 @@
-const canvas = document.getElementById("c");
+const contenedor = document.getElementById("mim-glosario");
+const base = contenedor.dataset.base || "./../";
+
+const canvas = document.getElementById("mim-glosario-canvas");
 const ctx = canvas.getContext("2d");
 
-function resize() {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
+// cached container size, kept in sync via ResizeObserver so the render
+// loop never forces a layout reflow by reading getBoundingClientRect()
+// on every frame
+let contW = 0, contH = 0;
+
+function actualizarTamano() {
+  const rect = contenedor.getBoundingClientRect();
+  contW = rect.width;
+  contH = rect.height;
+  canvas.width = contW;
+  canvas.height = contH;
 }
-resize();
-addEventListener("resize", resize);
+actualizarTamano();
+new ResizeObserver(actualizarTamano).observe(contenedor);
 
 // ===== LOAD YAML =====
-fetch('./../datos/glosario.yaml')
+fetch(`${base}datos/glosario.yaml`)
   .then(r => r.text())
   .then(t => init(jsyaml.load(t).glosario));
 
@@ -21,18 +32,18 @@ function init(glosario) {
   const blobs = [];
   let phase = Math.random() * Math.PI * 2;
 
-  // blob size in px, kept in sync with css/glosario.css .blob size
-  const blobSize = () => innerWidth <= 600 ? 76 : 116;
+  // blob size in px, kept in sync with css/glosario.css .mim-glosario-blob size
+  const blobSize = () => contW <= 600 ? 76 : 116;
 
   glosario.forEach(item => {
 
     const el = document.createElement("div");
-    el.className = "blob";
+    el.className = "mim-glosario-blob";
 
     const blob = {
       el,
-      x: innerWidth/2 + (Math.random() - 0.5) * 60,
-      y: innerHeight/2 + (Math.random() - 0.5) * 60,
+      x: contW/2 + (Math.random() - 0.5) * 60,
+      y: contH/2 + (Math.random() - 0.5) * 60,
       vx: 0,
       vy: 0,
       hue: hashColor(item.concepto),
@@ -42,19 +53,23 @@ function init(glosario) {
     };
 
     el.innerHTML = `
-      <div class="content">
-        <div class="concepto">${item.concepto}</div>
+      <div class="mim-glosario-content">
+        <div class="mim-glosario-concepto">${item.concepto}</div>
       </div>
     `;
 
     // drag, with a small movement/time threshold so a tap still
-    // registers as a click and opens the definicion panel
+    // registers as a click and opens the definicion panel. coordinates
+    // are converted from viewport-relative (clientX/Y) to
+    // container-relative, since the container can sit anywhere on the
+    // host page rather than always filling the whole viewport
     let ox, oy, startX, startY, startTime, moved;
 
     el.onpointerdown = e => {
       blob.dragging = true;
-      ox = e.clientX - blob.x;
-      oy = e.clientY - blob.y;
+      const rect = contenedor.getBoundingClientRect();
+      ox = (e.clientX - rect.left) - blob.x;
+      oy = (e.clientY - rect.top) - blob.y;
       startX = e.clientX;
       startY = e.clientY;
       startTime = Date.now();
@@ -63,8 +78,9 @@ function init(glosario) {
 
     addEventListener("pointermove", e => {
       if (!blob.dragging) return;
-      blob.x = e.clientX - ox;
-      blob.y = e.clientY - oy;
+      const rect = contenedor.getBoundingClientRect();
+      blob.x = (e.clientX - rect.left) - ox;
+      blob.y = (e.clientY - rect.top) - oy;
       if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) moved = true;
     });
 
@@ -76,7 +92,7 @@ function init(glosario) {
       }
     });
 
-    document.body.appendChild(el);
+    contenedor.appendChild(el);
     blobs.push(blob);
   });
 
@@ -86,23 +102,23 @@ function init(glosario) {
     phase += 0.02;
 
     // shared center, recomputed every frame so it adapts to any
-    // screen size (desktop or mobile) and to window resizes
-    const cx = innerWidth / 2;
-    const cy = innerHeight / 2;
+    // container size (desktop or mobile) and to resizes
+    const cx = contW / 2;
+    const cy = contH / 2;
 
     const size = blobSize();
     const half = size / 2;
     const metaballR = size * 0.34;
 
     // soft rectangular walls, padded so blobs (and their text) stay
-    // fully on screen. b.x/b.y are the blob's top-left corner, so the
+    // fully inside the container. b.x/b.y are the blob's top-left corner, so the
     // right/bottom bounds must subtract the full blob size, not just
-    // half of it, or the far edge can drift past the viewport.
+    // half of it, or the far edge can drift past the container.
     const padding = 50;
     const left = padding;
-    const right = innerWidth - size - padding;
+    const right = contW - size - padding;
     const top = padding;
-    const bottom = innerHeight - size - padding;
+    const bottom = contH - size - padding;
 
     blobs.forEach(b => {
 
@@ -167,7 +183,7 @@ function init(glosario) {
         // hard safety clamp: when many blobs crowd the same edge,
         // repulsion between them can overpower the soft push above,
         // so pin the position at the wall (no bounce, just a stop)
-        // to guarantee nothing (or its text) ever leaves the screen
+        // to guarantee nothing (or its text) ever leaves the container
         if (b.x < left) { b.x = left; if (b.vx < 0) b.vx = 0; }
         else if (b.x > right) { b.x = right; if (b.vx > 0) b.vx = 0; }
 
@@ -209,28 +225,28 @@ function mostrarDefinicion(blob) {
   let html = `<h2>${item.pregunta}</h2>`;
 
   if (def.texto) {
-    html += `<p class="texto">${def.texto}</p>`;
+    html += `<p class="mim-glosario-texto">${def.texto}</p>`;
   }
 
   if (def.imagen) {
-    html += `<img class="imagen" src="./../glosario-imagenes/${def.imagen}" alt="${item.concepto}">`;
+    html += `<img class="mim-glosario-imagen" src="${base}glosario-imagenes/${def.imagen}" alt="${item.concepto}">`;
   }
 
-  html += `<p class="firma"><strong>${def.persona}</strong>${def.contexto ? ` — ${def.contexto}` : ''}</p>`;
+  html += `<p class="mim-glosario-firma"><strong>${def.persona}</strong>${def.contexto ? ` — ${def.contexto}` : ''}</p>`;
 
   if (total > 1) {
-    html += `<p class="contador">${indice + 1} / ${total} — toca "${item.concepto}" de nuevo para ver otra</p>`;
+    html += `<p class="mim-glosario-contador">${indice + 1} / ${total} — toca "${item.concepto}" de nuevo para ver otra</p>`;
   }
 
-  document.getElementById("panelContenido").innerHTML = html;
-  document.getElementById("panel").classList.remove("oculto");
+  document.getElementById("mim-glosario-panel-contenido").innerHTML = html;
+  document.getElementById("mim-glosario-panel").classList.remove("mim-glosario-oculto");
 }
 
 function cerrarPanel() {
-  document.getElementById("panel").classList.add("oculto");
+  document.getElementById("mim-glosario-panel").classList.add("mim-glosario-oculto");
 }
 
-document.getElementById("cerrarPanel").addEventListener("click", cerrarPanel);
+document.getElementById("mim-glosario-cerrar").addEventListener("click", cerrarPanel);
 
 addEventListener("keydown", e => {
   if (e.key === "Escape") cerrarPanel();

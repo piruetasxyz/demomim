@@ -1,25 +1,48 @@
-body {
+/* =========================================================
+   ENVOLTORIO DE DEMOSTRACIÓN
+   Solo necesario porque esta página vive sola en este repo.
+   Al incrustar el componente en otro sitio (p.ej. WordPress), el
+   sitio anfitrión ya trae su propio reset — omitir este bloque.
+   ========================================================= */
+html, body {
   margin: 0;
-  overflow: hidden;
   background: #ffffff;
-  font-family: "Mirador", sans-serif;
-  font-weight: 400;
-  color: #ec6608;
 }
 
-h1 {
-  position: fixed;
+/* =========================================================
+   COMPONENTE MIM-GLOSARIO
+   Todo lo de aquí en adelante es lo que se incrusta. Vive bajo
+   #mim-glosario para no chocar con clases/ids de la página
+   anfitriona, y cada regla fija su propio color en vez de
+   heredar de body (útil si el sitio anfitrión fuerza su propio
+   color/tipografía en body con !important).
+   ========================================================= */
+
+#mim-glosario {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* la página anfitriona puede sobreescribir esta altura */
+  overflow: hidden;
+  font-family: "Mirador", sans-serif;
+  font-weight: 400;
+}
+
+.mim-glosario-titulo {
+  position: absolute;
   top: 0;
   left: 0;
   margin: 1rem;
   font-weight: 700;
+  color: #ec6608;
   pointer-events: none;
 }
 
-canvas {
-  position: fixed;
+#mim-glosario-canvas {
+  position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   filter: blur(18px) contrast(180%) saturate(140%);
   opacity: 0.9;
@@ -27,7 +50,7 @@ canvas {
 }
 
 /* concept blobs */
-.blob {
+.mim-glosario-blob {
   position: absolute;
   top: 0;
   left: 0;
@@ -41,13 +64,13 @@ canvas {
 }
 
 @media (max-width: 600px) {
-  .blob {
+  .mim-glosario-blob {
     width: 76px;
     height: 76px;
   }
 }
 
-.content {
+.mim-glosario-content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -60,18 +83,18 @@ canvas {
 }
 
 @media (max-width: 600px) {
-  .content {
+  .mim-glosario-content {
     font-size: 10px;
   }
 }
 
-.concepto {
+.mim-glosario-concepto {
   font-weight: 700;
   color: #ec6608;
 }
 
 /* definicion panel */
-.panel {
+#mim-glosario-panel {
   position: fixed;
   inset: 0;
   display: flex;
@@ -79,19 +102,20 @@ canvas {
   justify-content: center;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.85);
-  z-index: 10;
-  /* the backdrop itself is click-through, so blobs underneath stay
-     tappable — clicking the same (or another) concept while the
-     panel is open just swaps the content instead of getting stuck
-     needing to close the panel first */
+  /* por encima de cualquier header/overlay del sitio anfitrión */
+  z-index: 100000;
+  /* el fondo es click-through, así los blobs debajo siguen siendo
+     tocables — tocar el mismo concepto (u otro) con el panel abierto
+     simplemente cambia el contenido en vez de quedar atascado
+     necesitando cerrar el panel primero */
   pointer-events: none;
 }
 
-.panel.oculto {
+#mim-glosario-panel.mim-glosario-oculto {
   display: none;
 }
 
-#panelContenido {
+#mim-glosario-panel-contenido {
   position: relative;
   max-width: 640px;
   max-height: 80vh;
@@ -106,25 +130,26 @@ canvas {
 }
 
 @media (max-width: 600px) {
-  #panelContenido {
+  #mim-glosario-panel-contenido {
     max-height: 76vh;
     padding: 1.5rem;
     border-radius: 16px;
   }
 }
 
-#panelContenido h2 {
+#mim-glosario-panel-contenido h2 {
   margin-top: 0;
   color: #ec6608;
+  font-weight: 700;
 }
 
-#panelContenido .texto {
+#mim-glosario-panel-contenido .mim-glosario-texto {
   color: #000;
   line-height: 1.5;
   white-space: pre-line;
 }
 
-#panelContenido .imagen {
+#mim-glosario-panel-contenido .mim-glosario-imagen {
   display: block;
   max-width: 100%;
   height: auto;
@@ -132,18 +157,18 @@ canvas {
   border-radius: 8px;
 }
 
-#panelContenido .firma {
+#mim-glosario-panel-contenido .mim-glosario-firma {
   color: #555;
   font-size: 0.9rem;
 }
 
-#panelContenido .contador {
+#mim-glosario-panel-contenido .mim-glosario-contador {
   color: #ec6608;
   font-size: 0.85rem;
   font-style: italic;
 }
 
-.cerrar {
+#mim-glosario-cerrar {
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
@@ -156,12 +181,12 @@ canvas {
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
-  z-index: 11;
+  z-index: 100001;
   pointer-events: auto;
 }
 
 @media (max-width: 600px) {
-  .cerrar {
+  #mim-glosario-cerrar {
     top: 1rem;
     right: 1rem;
   }

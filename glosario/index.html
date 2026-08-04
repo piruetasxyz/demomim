@@ -5,18 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>glosario</title>
 <script src="./../lib/js-yaml.min.js"></script>
-<link rel="stylesheet" href="https://use.typekit.net/naa5mvy.css">
 <link rel="stylesheet" href="./../css/tipografias.css">
 <link rel="stylesheet" href="./../css/glosario.css">
 </head>
 <body>
 
-<h1>Glosario</h1>
-<canvas id="c"></canvas>
+<!--
+  data-base apunta a la carpeta raíz del sitio (donde viven /datos y
+  /glosario-imagenes), relativa a esta página. Al incrustar este bloque
+  en otro sitio, basta con cambiar este valor (p.ej. a una ruta absoluta
+  tipo /wp-content/uploads/mim-glosario/) — el resto del componente no
+  necesita tocarse.
+-->
+<div id="mim-glosario" data-base="./../">
 
-<div id="panel" class="panel oculto">
-  <button id="cerrarPanel" class="cerrar" aria-label="Cerrar">×</button>
-  <div id="panelContenido"></div>
+  <h1 class="mim-glosario-titulo">Glosario</h1>
+  <canvas id="mim-glosario-canvas"></canvas>
+
+  <div id="mim-glosario-panel" class="mim-glosario-oculto">
+    <button id="mim-glosario-cerrar" aria-label="Cerrar">×</button>
+    <div id="mim-glosario-panel-contenido"></div>
+  </div>
+
 </div>
 
 <script src="./../js/glosario.js"></script>
