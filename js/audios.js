@@ -85,13 +85,13 @@ class Blob {
     }
 
     gooCtx.closePath();
-    gooCtx.fillStyle = `hsla(${this.hue}, 80%, 70%, 0.9)`;
+    gooCtx.fillStyle = `hsla(${this.hue}, 70%, 60%, 0.4)`;
     gooCtx.fill();
   }
 
   // crisp label, drawn unblurred on top of the goo layer
   drawLabel() {
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = "#ec6608";
     ctx.font = "700 16px 'area', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";

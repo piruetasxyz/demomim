@@ -1,8 +1,9 @@
 body {
   margin: 0;
-  background: #ec6608;
+  background: #ffffff;
   overflow: hidden;
   font-family: "Mirador", sans-serif;
+  color: #ec6608;
 }
 
 canvas {
@@ -16,7 +17,7 @@ canvas {
    same trick as css/glosario.css (blur + contrast + saturate) */
 #canvas-goo {
   filter: blur(18px) contrast(180%) saturate(140%);
-  mix-blend-mode: screen;
+  mix-blend-mode: multiply;
   opacity: 0.9;
   pointer-events: none;
   z-index: 1;
