@@ -5,11 +5,11 @@
 const SVG_NS   = 'http://www.w3.org/2000/svg';
 const LINE_PAD = 5;   // px gap between line tip and label edge
 
-const FONT_FAMILY = "'Mirador', sans-serif";
-const LINE_WEIGHT = 1.6; // fixed at the midpoint of the former 0.2–3 slider range
+const FONT_FAMILY  = "'Mirador', sans-serif";
+const LINE_WEIGHT  = 1.6; // fixed at the midpoint of the former 0.2–3 slider range
+const LINE_OPACITY = 0.05 + (1 - 0.05) / 3; // fixed at the 1/3 point of the former 0.05–1 slider range
 
 const DEFAULTS = {
-  lineOpacity: 0.35,
   fontSize:    10,
 };
 
@@ -301,7 +301,7 @@ function buildScene() {
     const lineEl = svgEl('line', {
       stroke:           '#999',
       'stroke-width':   LINE_WEIGHT,
-      'stroke-opacity': state.lineOpacity,
+      'stroke-opacity': LINE_OPACITY,
       'stroke-linecap': 'round',
     });
     edgeG.appendChild(lineEl);
@@ -452,25 +452,8 @@ function bindDrag() {
 
 // ── Controls ──────────────────────────────────────────────────────────────────
 
-function updateLineAttrs() {
-  edgeElements.forEach(({ el }) => {
-    el.setAttribute('stroke-width',   LINE_WEIGHT);
-    el.setAttribute('stroke-opacity', state.lineOpacity);
-  });
-}
-
-function syncControlsToState() {
-  document.getElementById('line-opacity').value = state.lineOpacity;
-  document.getElementById('font-size').value    = state.fontSize;
-}
-
 function bindControls() {
   const $ = id => document.getElementById(id);
-
-  $('line-opacity').addEventListener('input', e => {
-    state.lineOpacity = parseFloat(e.target.value);
-    updateLineAttrs();
-  });
 
   $('font-size').addEventListener('input', e => {
     state.fontSize = parseInt(e.target.value, 10);

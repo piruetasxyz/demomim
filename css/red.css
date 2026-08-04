@@ -302,14 +302,14 @@ button:active {
     display: none;
   }
 
-  /* First 2 groups (sliders): fill row 1 equally */
-  .control-bar > .control-group:nth-child(-n+2) {
+  /* First group (slider): fill row 1 */
+  .control-bar > .control-group:nth-child(-n+1) {
     flex: 1 1 auto;
     justify-content: center;
   }
 
-  /* Button groups (3+): auto-size, stay on row 2 */
-  .control-bar > .control-group:nth-child(n+3) {
+  /* Button groups (2+): auto-size, stay on row 2 */
+  .control-bar > .control-group:nth-child(n+2) {
     flex: 0 0 auto;
   }
 
