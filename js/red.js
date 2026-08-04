@@ -106,22 +106,6 @@ function layoutConstellation(W, H, ns) {
   return pos;
 }
 
-function layoutCircle(W, H, ns) {
-  const cx = W / 2, cy = H / 2, n = ns.length;
-  const r  = Math.min(W, H) * 0.35;
-  const pos = {};
-  ns.forEach((node, i) => {
-    const a  = (i / n) * Math.PI * 2 - Math.PI / 2;
-    const jr = (Math.random() - 0.5) * 18;
-    const ja = (Math.random() - 0.5) * 0.07;
-    pos[node.id] = {
-      x: cx + (r + jr) * Math.cos(a + ja),
-      y: cy + (r + jr) * Math.sin(a + ja),
-    };
-  });
-  return pos;
-}
-
 function layoutRiver(W, H, ns) {
   const mY = 62, n = ns.length;
   const pos = {};
@@ -130,37 +114,6 @@ function layoutRiver(W, H, ns) {
     pos[node.id] = {
       x: W / 2 + (Math.random() - 0.5) * W * 0.54,
       y: mY + t * (H - 2 * mY),
-    };
-  });
-  return pos;
-}
-
-function layoutWave(W, H, ns) {
-  const mX = 80, n = ns.length;
-  const pos = {};
-  ns.forEach((node, i) => {
-    const t = n > 1 ? i / (n - 1) : 0.5;
-    const x = mX + t * (W - 2 * mX) + (Math.random() - 0.5) * 28;
-    const y = H / 2 + Math.sin(t * Math.PI * 2.8) * (H * 0.30) + (Math.random() - 0.5) * 20;
-    pos[node.id] = { x, y: Math.max(55, Math.min(H - 55, y)) };
-  });
-  return pos;
-}
-
-function layoutGrid(W, H, ns) {
-  const n    = ns.length;
-  const cols = Math.max(2, Math.ceil(Math.sqrt(n * W / H)));
-  const rows = Math.ceil(n / cols);
-  const cellW  = (W * 0.72) / cols;
-  const cellH  = (H * 0.70) / rows;
-  const startX = (W - cellW * cols) / 2 + cellW / 2;
-  const startY = (H - cellH * rows) / 2 + cellH / 2;
-  const pos    = {};
-  ns.forEach((node, i) => {
-    const col = i % cols, row = Math.floor(i / cols);
-    pos[node.id] = {
-      x: startX + col * cellW + (Math.random() - 0.5) * 20,
-      y: startY + row * cellH + (Math.random() - 0.5) * 14,
     };
   });
   return pos;
@@ -201,10 +154,7 @@ function layoutCaos(W, H, ns) {
 
 const TEMPLATES = [
   { id: 'constellation', label: 'Constelación', desc: 'peso → izquierda', fn: layoutConstellation },
-  { id: 'circle',        label: 'Círculo',       desc: 'anillo uniforme', fn: layoutCircle        },
   { id: 'river',         label: 'Río',           desc: 'flujo vertical',  fn: layoutRiver         },
-  { id: 'wave',          label: 'Ola',           desc: 'onda sinusoide',  fn: layoutWave          },
-  { id: 'grid',          label: 'Cuadrícula',    desc: 'rejilla',         fn: layoutGrid          },
   { id: 'cloud',         label: 'Nube',          desc: 'racimo gaussiano',fn: layoutCloud         },
   { id: 'caos',          label: 'Caos',          desc: 'dispersión libre',fn: layoutCaos          },
 ];
