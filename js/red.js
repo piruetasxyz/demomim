@@ -18,7 +18,7 @@ const DEFAULTS = {
 let state          = { ...DEFAULTS };
 let data           = null;
 let nodesSorted    = [];          // data.nodes sorted by degree desc
-let activeTemplate = 'hierarchy';
+let activeTemplate = 'constellation';
 
 // Position layers
 let basePositions  = {};          // nodeId → {x,y}  layout anchors
@@ -122,45 +122,6 @@ function layoutCircle(W, H, ns) {
   return pos;
 }
 
-function layoutHierarchy(W, H, ns) {
-  const cx = W / 2;
-  const cy = H / 2;
-
-  const pos = {};
-
-  // Group by hierarchy
-  const levels = {};
-  data.nodes.forEach(n => {
-    const h = n.hierarchy ?? 2;
-    if (!levels[h]) levels[h] = [];
-    levels[h].push(n);
-  });
-
-  const r1 = Math.min(W, H) * 0.22;
-  const r2 = Math.min(W, H) * 0.42;
-
-  // Center (level 0)
-  (levels[0] || []).forEach(node => {
-    pos[node.id] = { x: cx, y: cy };
-  });
-
-  function placeRing(nodes, radius) {
-    if (!nodes || nodes.length === 0) return;
-    nodes.forEach((node, i) => {
-      const angle = (i / nodes.length) * Math.PI * 2 - Math.PI / 2;
-      pos[node.id] = {
-        x: cx + radius * Math.cos(angle),
-        y: cy + radius * Math.sin(angle)
-      };
-    });
-  }
-
-  placeRing(levels[1], r1);
-  placeRing(levels[2], r2);
-
-  return pos;
-}
-
 function layoutRiver(W, H, ns) {
   const mY = 62, n = ns.length;
   const pos = {};
@@ -224,24 +185,6 @@ function layoutCloud(W, H, ns) {
   return pos;
 }
 
-function layoutInfinito(W, H, ns) {
-  // Lissajous figure-8 (∞ on its side)
-  const cx = W / 2, cy = H / 2, n = ns.length;
-  const a  = Math.min(W * 0.33, H * 0.70);
-  const b  = Math.min(H * 0.24, W * 0.18);
-  const pos = {};
-  ns.forEach((node, i) => {
-    const t  = (i / n) * Math.PI * 2;
-    const x  = cx + a * Math.sin(t) + (Math.random() - 0.5) * 18;
-    const y  = cy + b * Math.sin(2 * t) * 0.5 + (Math.random() - 0.5) * 14;
-    pos[node.id] = {
-      x: Math.max(60, Math.min(W - 60, x)),
-      y: Math.max(50, Math.min(H - 50, y)),
-    };
-  });
-  return pos;
-}
-
 function layoutCaos(W, H, ns) {
   const mX = 70, mY = 55;
   const pos = {};
@@ -257,14 +200,12 @@ function layoutCaos(W, H, ns) {
 // ── Template registry ─────────────────────────────────────────────────────────
 
 const TEMPLATES = [
-  { id: 'hierarchy', label: 'Jerarquía', desc: 'niveles radiales', fn: layoutHierarchy },
   { id: 'constellation', label: 'Constelación', desc: 'peso → izquierda', fn: layoutConstellation },
   { id: 'circle',        label: 'Círculo',       desc: 'anillo uniforme', fn: layoutCircle        },
   { id: 'river',         label: 'Río',           desc: 'flujo vertical',  fn: layoutRiver         },
   { id: 'wave',          label: 'Ola',           desc: 'onda sinusoide',  fn: layoutWave          },
   { id: 'grid',          label: 'Cuadrícula',    desc: 'rejilla',         fn: layoutGrid          },
   { id: 'cloud',         label: 'Nube',          desc: 'racimo gaussiano',fn: layoutCloud         },
-  { id: 'infinito',      label: 'Infinito',      desc: 'figura ∞',        fn: layoutInfinito      },
   { id: 'caos',          label: 'Caos',          desc: 'dispersión libre',fn: layoutCaos          },
 ];
 
