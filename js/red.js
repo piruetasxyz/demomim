@@ -58,6 +58,39 @@ function svgCoords(e) {
   return { x: src.clientX - rect.left, y: src.clientY - rect.top };
 }
 
+const LABEL_LINE_HEIGHT_EM = 1.15;
+
+// Greedily breaks `label` into word-wrapped lines no wider than `maxWidth`,
+// then rebuilds `textEl` as centered tspans (must already be attached to the
+// DOM so getComputedTextLength() resolves against the real font).
+function wrapLabelIntoTspans(textEl, label, maxWidth, x) {
+  const words = label.split(/\s+/).filter(Boolean);
+  const lines = [];
+  let current = words[0] || '';
+  textEl.textContent = current;
+  for (let i = 1; i < words.length; i++) {
+    const candidate = `${current} ${words[i]}`;
+    textEl.textContent = candidate;
+    if (textEl.getComputedTextLength() > maxWidth) {
+      lines.push(current);
+      current = words[i];
+    } else {
+      current = candidate;
+    }
+  }
+  lines.push(current);
+
+  textEl.textContent = '';
+  lines.forEach((line, i) => {
+    const tspan = svgEl('tspan', {
+      x,
+      dy: i === 0 ? `${-(lines.length - 1) * LABEL_LINE_HEIGHT_EM / 2}em` : `${LABEL_LINE_HEIGHT_EM}em`,
+    });
+    tspan.textContent = line;
+    textEl.appendChild(tspan);
+  });
+}
+
 // ── Degree sort ───────────────────────────────────────────────────────────────
 
 function computeDegrees() {
@@ -210,6 +243,8 @@ function buildScene() {
   
 
   // 2 — node labels (z = 1)
+  const { W: sceneW } = svgSize();
+  const maxLabelWidth = Math.min(200, sceneW * 0.3);
   nodeElements = {};
   data.nodes.forEach(node => {
     const pos = positions[node.id] || { x: -9999, y: -9999 };
@@ -224,8 +259,8 @@ function buildScene() {
       'dominant-baseline': 'middle',
       'data-node-id':      node.id,
     });
-    t.textContent = node.label;
-    svg.appendChild(t);
+    svg.appendChild(t); // attach before measuring so font metrics resolve
+    wrapLabelIntoTspans(t, node.label, maxLabelWidth, pos.x);
     nodeElements[node.id] = t;
   });
 
@@ -258,22 +293,59 @@ function buildScene() {
     edgeElements.push({ el: lineEl, source, target });
   });
 
-  // 5 — watermark (topmost layer)
-  const wm = svgEl('text', {
-    x:                16,
-    y:                22,
-    'font-family':    'sans-serif',
-    'font-size':      '11px',
-    'font-variant':   'small-caps',
-    'letter-spacing': '0.06em',
-    fill:             '#c8c8c8',
-    'pointer-events': 'none',
-  });
-  wm.textContent = data.constellation.name;
-  svg.appendChild(wm);
-
   // Start animation loop
   animHandle = requestAnimationFrame(animLoop);
+}
+
+// Pairwise-separates overlapping labels along their axis of least overlap.
+// The correction is folded into basePositions (not just positions) so it
+// accumulates frame to frame — nodes visibly "bounce" apart until settled,
+// instead of re-overlapping the instant the float animation ticks forward.
+const LABEL_GAP = 6; // px breathing room kept between separated labels
+
+function resolveLabelCollisions() {
+  const ids = data.nodes.map(n => n.id);
+  for (let i = 0; i < ids.length; i++) {
+    const a = ids[i];
+    if (drag && drag.nodeId === a) continue;
+    const pa = positions[a], sa = labelSizes[a];
+    if (!pa || !sa) continue;
+
+    for (let j = i + 1; j < ids.length; j++) {
+      const b = ids[j];
+      if (drag && drag.nodeId === b) continue;
+      const pb = positions[b], sb = labelSizes[b];
+      if (!pb || !sb) continue;
+
+      const dx = pb.x - pa.x;
+      const dy = pb.y - pa.y;
+      const overlapX = (sa.w + sb.w) / 2 + LABEL_GAP - Math.abs(dx);
+      const overlapY = (sa.h + sb.h) / 2 + LABEL_GAP - Math.abs(dy);
+      if (overlapX <= 0 || overlapY <= 0) continue;
+
+      // Push apart along whichever axis has the smaller overlap
+      if (overlapX < overlapY) {
+        const push = (overlapX / 2) * Math.sign(dx || 1);
+        pa.x -= push; basePositions[a].x -= push;
+        pb.x += push; basePositions[b].x += push;
+      } else {
+        const push = (overlapY / 2) * Math.sign(dy || 1);
+        pa.y -= push; basePositions[a].y -= push;
+        pb.y += push; basePositions[b].y += push;
+      }
+    }
+  }
+
+  // Keep bounced labels on-canvas
+  const { W, H } = svgSize();
+  ids.forEach(id => {
+    if (drag && drag.nodeId === id) return;
+    const pos = positions[id], bp = basePositions[id], sz = labelSizes[id];
+    if (!pos || !bp || !sz) return;
+    const halfW = sz.w / 2 + LABEL_GAP, halfH = sz.h / 2 + LABEL_GAP;
+    pos.x = bp.x = Math.max(halfW, Math.min(W - halfW, bp.x));
+    pos.y = bp.y = Math.max(halfH, Math.min(H - halfH, bp.y));
+  });
 }
 
 // ── Animation loop (runs every frame) ────────────────────────────────────────
@@ -293,13 +365,18 @@ function animLoop(ts) {
     };
   });
 
-  // Update text element positions
+  resolveLabelCollisions();
+
+  // Update text element positions (each tspan carries its own x, so it
+  // must be kept in sync too — setting x on the parent <text> alone
+  // wouldn't move already-positioned tspans)
   data.nodes.forEach(node => {
     const el  = nodeElements[node.id];
     const pos = positions[node.id];
     if (el && pos) {
       el.setAttribute('x', pos.x);
       el.setAttribute('y', pos.y);
+      for (const tspan of el.children) tspan.setAttribute('x', pos.x);
     }
   });
 

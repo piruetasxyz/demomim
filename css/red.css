@@ -13,6 +13,18 @@ body {
   font-family: "Mirador", sans-serif;
 }
 
+/* ── Title ──────────────────────────────────────────────────────────────── */
+
+.titulo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  font-weight: 700;
+  color: #ec6608;
+  pointer-events: none;
+}
+
 /* ── SVG canvas ─────────────────────────────────────────────────────────── */
 
 #main-svg {
