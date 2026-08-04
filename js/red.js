@@ -122,57 +122,6 @@ function layoutCircle(W, H, ns) {
   return pos;
 }
 
-function layoutMandala(W, H, ns) {
-  const cx = W / 2, cy = H / 2, n = ns.length;
-  const pos = {};
-  if (n === 0) return pos;
-
-  // Highest-degree node at center
-  pos[ns[0].id] = {
-    x: cx + (Math.random() - 0.5) * 12,
-    y: cy + (Math.random() - 0.5) * 12,
-  };
-
-  const rest  = ns.slice(1);
-  const half  = Math.ceil(rest.length / 2);
-  const inner = rest.slice(0, half);
-  const outer = rest.slice(half);
-  const rI    = Math.min(W, H) * 0.21;
-  const rO    = Math.min(W, H) * 0.38;
-
-  inner.forEach((node, i) => {
-    const a = (i / inner.length) * Math.PI * 2 - Math.PI / 2 + (Math.random() - 0.5) * 0.15;
-    pos[node.id] = {
-      x: cx + (rI + (Math.random() - 0.5) * 14) * Math.cos(a),
-      y: cy + (rI + (Math.random() - 0.5) * 14) * Math.sin(a),
-    };
-  });
-  outer.forEach((node, i) => {
-    const a = (i / outer.length) * Math.PI * 2 - Math.PI / 2 + (Math.random() - 0.5) * 0.15;
-    pos[node.id] = {
-      x: cx + (rO + (Math.random() - 0.5) * 18) * Math.cos(a),
-      y: cy + (rO + (Math.random() - 0.5) * 18) * Math.sin(a),
-    };
-  });
-  return pos;
-}
-
-function layoutSpiral(W, H, ns) {
-  const cx = W / 2, cy = H / 2, n = ns.length;
-  const maxR = Math.min(W, H) * 0.40;
-  const pos  = {};
-  ns.forEach((node, i) => {
-    const t = n > 1 ? i / (n - 1) : 0;
-    const a = t * Math.PI * 2 * 2.4;
-    const r = t * maxR;
-    pos[node.id] = {
-      x: cx + (r + (Math.random() - 0.5) * 10) * Math.cos(a),
-      y: cy + (r + (Math.random() - 0.5) * 10) * Math.sin(a),
-    };
-  });
-  return pos;
-}
-
 function layoutHierarchy(W, H, ns) {
   const cx = W / 2;
   const cy = H / 2;
@@ -311,8 +260,6 @@ const TEMPLATES = [
   { id: 'hierarchy', label: 'Jerarquía', desc: 'niveles radiales', fn: layoutHierarchy },
   { id: 'constellation', label: 'Constelación', desc: 'peso → izquierda', fn: layoutConstellation },
   { id: 'circle',        label: 'Círculo',       desc: 'anillo uniforme', fn: layoutCircle        },
-  { id: 'mandala',       label: 'Mandala',       desc: 'anillos concéntricos', fn: layoutMandala  },
-  { id: 'spiral',        label: 'Espiral',       desc: 'caracol',         fn: layoutSpiral        },
   { id: 'river',         label: 'Río',           desc: 'flujo vertical',  fn: layoutRiver         },
   { id: 'wave',          label: 'Ola',           desc: 'onda sinusoide',  fn: layoutWave          },
   { id: 'grid',          label: 'Cuadrícula',    desc: 'rejilla',         fn: layoutGrid          },
@@ -590,14 +537,8 @@ function bindControls() {
   });
 
   $('btn-randomize').addEventListener('click', () => {
-    applyTemplate(activeTemplate);
-  });
-
-  $('btn-reset').addEventListener('click', () => {
-    state = { ...DEFAULTS };
-    syncControlsToState();
-    updateLineAttrs();
-    applyTemplate('constellation');
+    const tpl = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
+    applyTemplate(tpl.id);
   });
 
   // Templates panel toggle
