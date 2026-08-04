@@ -27,3 +27,14 @@ canvas {
 #canvas {
   z-index: 2;
 }
+
+.titulo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  font-weight: 700;
+  color: #ec6608;
+  pointer-events: none;
+  z-index: 3;
+}
