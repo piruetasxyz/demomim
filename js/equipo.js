@@ -14,9 +14,9 @@ fetch('./../datos/equipo.yaml')
   .then(t => init(jsyaml.load(t).equipo));
 
 // ===== SYSTEM =====
-// Everyone belongs to a single interconnected cluster (no separate
-// clusters per institución). Only the color varies by institución;
-// everyone else shares the same behavior and visual hierarchy.
+// Fixed grid layout, like a constellation that doesn't drift on its
+// own (same approach as js/audios.js) — blobs only move when dragged.
+// Color is per person, for the same individual variety as glosario.
 function init(equipo) {
 
   const blobs = [];
@@ -25,19 +25,20 @@ function init(equipo) {
   // blob size in px, kept in sync with css/equipo.css .blob size
   const blobSize = () => innerWidth <= 600 ? 64 : 100;
 
-  equipo.forEach(p => {
+  const posiciones = posicionesGrid(equipo.length, innerWidth, innerHeight);
+
+  equipo.forEach((p, i) => {
 
     const el = document.createElement("div");
     el.className = "blob";
 
     const size = blobSize();
+    const half = size / 2;
     const blob = {
       el,
-      x: innerWidth/2 + (Math.random() - 0.5) * 60,
-      y: innerHeight/2 + (Math.random() - 0.5) * 60,
-      vx: 0,
-      vy: 0,
-      hue: hashColor(p["institucion-largo"]),
+      x: posiciones[i].cx - half,
+      y: posiciones[i].cy - half,
+      hue: hashColor(p.nombre),
       dragging: false
     };
 
@@ -77,96 +78,11 @@ function init(equipo) {
 
     phase += 0.02;
 
-    // shared center, recomputed every frame so it adapts to any
-    // screen size (desktop or mobile) and to window resizes
-    const cx = innerWidth / 2;
-    const cy = innerHeight / 2;
-
     const size = blobSize();
     const half = size / 2;
     const metaballR = size * 0.34;
 
-    // soft rectangular walls, padded so blobs (and their text) stay
-    // fully on screen. b.x/b.y are the blob's top-left corner, so the
-    // right/bottom bounds must subtract the full blob size, not just
-    // half of it, or the far edge can drift past the viewport.
-    const padding = 50;
-    const left = padding;
-    const right = innerWidth - size - padding;
-    const top = padding;
-    const bottom = innerHeight - size - padding;
-
     blobs.forEach(b => {
-
-      if (!b.dragging) {
-
-        // attraction to the shared center (softer, so repulsion can
-        // spread people out further instead of collapsing into a ring)
-        let dx = cx - b.x;
-        let dy = cy - b.y;
-
-        b.vx += dx * 0.00035;
-        b.vy += dy * 0.00035;
-
-        // orbit, ties everyone into one rotating, interconnected mass
-        // (weaker than before, so it doesn't force a tight ring)
-        b.vx += -dy * 0.00025;
-        b.vy += dx * 0.00025;
-
-        // repulsion between all people, regardless of institución
-        // (stronger, so nobody gets trapped bouncing near the center)
-        blobs.forEach(o => {
-          if (b === o) return;
-
-          let dx = o.x - b.x;
-          let dy = o.y - b.y;
-          let d = Math.sqrt(dx*dx + dy*dy);
-          if (d < 20) d = 20;
-
-          let rep = -22 / (d*d);
-
-          b.vx += rep * dx;
-          b.vy += rep * dy;
-        });
-
-        b.vx *= 0.95;
-        b.vy *= 0.95;
-
-        // speed cap: nothing is allowed to spin off at high speed
-        const speed = Math.sqrt(b.vx*b.vx + b.vy*b.vy);
-        const maxSpeed = 3.5;
-        if (speed > maxSpeed) {
-          b.vx = (b.vx / speed) * maxSpeed;
-          b.vy = (b.vy / speed) * maxSpeed;
-        }
-
-        b.x += b.vx;
-        b.y += b.vy;
-
-        // soft walls: gently push back in, proportional to how far
-        // past the edge the blob is, instead of a hard circular clamp
-        if (b.x < left) {
-          b.vx += (left - b.x) * 0.06;
-        } else if (b.x > right) {
-          b.vx -= (b.x - right) * 0.06;
-        }
-
-        if (b.y < top) {
-          b.vy += (top - b.y) * 0.06;
-        } else if (b.y > bottom) {
-          b.vy -= (b.y - bottom) * 0.06;
-        }
-
-        // hard safety clamp: when many blobs crowd the same edge,
-        // repulsion between them can overpower the soft push above,
-        // so pin the position at the wall (no bounce, just a stop)
-        // to guarantee nothing (or its text) ever leaves the screen
-        if (b.x < left) { b.x = left; if (b.vx < 0) b.vx = 0; }
-        else if (b.x > right) { b.x = right; if (b.vx > 0) b.vx = 0; }
-
-        if (b.y < top) { b.y = top; if (b.vy < 0) b.vy = 0; }
-        else if (b.y > bottom) { b.y = bottom; if (b.vy > 0) b.vy = 0; }
-      }
 
       const s = 1 + Math.sin(phase) * 0.08;
 
@@ -191,6 +107,29 @@ function init(equipo) {
 }
 
 // ===== UTIL =====
+// fixed grid layout, sized to fit n items (same approach as
+// crearBlobs in js/audios.js), each cell gets a small random jitter
+// so it doesn't look too mechanical
+function posicionesGrid(n, width, height) {
+  const cols = Math.ceil(Math.sqrt(n));
+  const rows = Math.ceil(n / cols);
+
+  const padding = 80;
+  const cellWidth = (width - padding * 2) / cols;
+  const cellHeight = (height - padding * 2) / rows;
+
+  const posiciones = [];
+  for (let i = 0; i < n; i++) {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    posiciones.push({
+      cx: padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2,
+      cy: padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2
+    });
+  }
+  return posiciones;
+}
+
 function hashColor(str) {
   let h = 0;
   for (let i=0;i<str.length;i++) {

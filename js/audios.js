@@ -148,7 +148,7 @@ function crearBlobs(entries) {
     const x = padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2;
     const y = padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2;
 
-    return new Blob(x, y, radius, hashColor(entry.concepto), entry.persona, i);
+    return new Blob(x, y, radius, hashColor(entry.archivo), entry.persona, i);
   });
 }
 
