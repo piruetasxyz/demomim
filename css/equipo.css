@@ -27,7 +27,7 @@ canvas {
   border-radius: 50%;
   overflow: hidden;
   pointer-events: auto;
-  cursor: grab;
+  cursor: pointer;
   touch-action: none;
 }
 

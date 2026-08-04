@@ -21,6 +21,7 @@ function init(equipo) {
 
   const blobs = [];
   let phase = Math.random() * Math.PI * 2;
+  let noiseTime = Math.random() * 1000;
 
   // blob size in px, kept in sync with css/equipo.css .blob size
   const blobSize = () => innerWidth <= 600 ? 64 : 100;
@@ -38,6 +39,11 @@ function init(equipo) {
       el,
       x: posiciones[i].cx - half,
       y: posiciones[i].cy - half,
+      homeX: posiciones[i].cx - half,
+      homeY: posiciones[i].cy - half,
+      vx: 0,
+      vy: 0,
+      noiseSeed: Math.random() * 1000,
       hue: hashColor(p.nombre),
       dragging: false
     };
@@ -77,10 +83,48 @@ function init(equipo) {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     phase += 0.02;
+    noiseTime += 0.004;
 
     const size = blobSize();
     const half = size / 2;
     const metaballR = size * 0.34;
+
+    // gentle perlin-like drift around each blob's home slot, so the
+    // constellation stays put overall but doesn't feel frozen
+    blobs.forEach(b => {
+      if (b.dragging) return;
+
+      const nx = noise(b.noiseSeed, noiseTime) - 0.5;
+      const ny = noise(b.noiseSeed + 500, noiseTime) - 0.5;
+      b.vx += nx * 0.02;
+      b.vy += ny * 0.02;
+
+      // weak spring back to the home slot, keeps drift bounded
+      b.vx += (b.homeX - b.x) * 0.002;
+      b.vy += (b.homeY - b.y) * 0.002;
+
+      b.vx *= 0.9;
+      b.vy *= 0.9;
+
+      b.x += b.vx;
+      b.y += b.vy;
+    });
+
+    // bounce blobs off each other when they overlap
+    for (let i = 0; i < blobs.length; i++) {
+      for (let j = i + 1; j < blobs.length; j++) {
+        const a = blobs[i], c = blobs[j];
+        const dx = (c.x + half) - (a.x + half);
+        const dy = (c.y + half) - (a.y + half);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist > 0 && dist < size) {
+          const overlap = (size - dist) / 2;
+          const ux = dx / dist, uy = dy / dist;
+          if (!a.dragging) { a.x -= ux * overlap; a.y -= uy * overlap; }
+          if (!c.dragging) { c.x += ux * overlap; c.y += uy * overlap; }
+        }
+      }
+    }
 
     blobs.forEach(b => {
 
@@ -136,4 +180,20 @@ function hashColor(str) {
     h = str.charCodeAt(i) + ((h<<5)-h);
   }
   return h % 360;
+}
+
+// smooth 1D value noise (cheap perlin-like drift): interpolates
+// between pseudo-random lattice values instead of jumping around
+function noise(seed, t) {
+  const i = Math.floor(t);
+  const f = t - i;
+  const a = pseudoRandom(seed + i);
+  const b = pseudoRandom(seed + i + 1);
+  const u = f * f * (3 - 2 * f);
+  return a + u * (b - a);
+}
+
+function pseudoRandom(n) {
+  const x = Math.sin(n * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
 }

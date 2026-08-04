@@ -54,6 +54,11 @@ class Blob {
   constructor(x, y, radius, hue, label, playerIndex) {
     this.x = x;
     this.y = y;
+    this.homeX = x;
+    this.homeY = y;
+    this.vx = 0;
+    this.vy = 0;
+    this.driftSeed = Math.random() * 1000;
     this.baseRadius = radius;
     this.radius = radius;
     this.hue = hue;
@@ -74,8 +79,8 @@ class Blob {
     const points = 24;
     for (let i = 0; i <= points; i++) {
       const angle = (i / points) * Math.PI * 2;
-      const noise = Math.sin(angle * 3 + time + this.noiseOffset);
-      const r = this.radius + noise * 10;
+      const wobble = Math.sin(angle * 3 + time + this.noiseOffset);
+      const r = this.radius + wobble * 10;
 
       const px = this.x + Math.cos(angle) * r;
       const py = this.y + Math.sin(angle) * r;
@@ -187,11 +192,17 @@ canvas.addEventListener("pointerdown", (e) => {
 });
 
 canvas.addEventListener("pointermove", (e) => {
-  if (!draggingBlob) return;
-
   const rect = canvas.getBoundingClientRect();
-  draggingBlob.x = e.clientX - rect.left;
-  draggingBlob.y = e.clientY - rect.top;
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  if (!draggingBlob) {
+    canvas.style.cursor = blobs.some(b => b.isInside(mx, my)) ? "pointer" : "default";
+    return;
+  }
+
+  draggingBlob.x = mx;
+  draggingBlob.y = my;
 
   if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) moved = true;
 });
@@ -212,13 +223,60 @@ canvas.addEventListener("pointerup", async () => {
 
 canvas.addEventListener("pointerleave", () => {
   draggingBlob = null;
+  canvas.style.cursor = "default";
 });
 
 // --- Animation ---
+
+// gentle perlin-like drift around each blob's home slot, plus a
+// bounce apart when two blobs overlap, so the layout stays put
+// overall but doesn't feel frozen
+function updatePhysics() {
+  blobs.forEach(b => {
+    if (b === draggingBlob) return;
+
+    const nx = noise(b.driftSeed, noiseTime) - 0.5;
+    const ny = noise(b.driftSeed + 500, noiseTime) - 0.5;
+    b.vx += nx * 0.02;
+    b.vy += ny * 0.02;
+
+    // weak spring back to the home slot, keeps drift bounded
+    b.vx += (b.homeX - b.x) * 0.002;
+    b.vy += (b.homeY - b.y) * 0.002;
+
+    b.vx *= 0.9;
+    b.vy *= 0.9;
+
+    b.x += b.vx;
+    b.y += b.vy;
+  });
+
+  for (let i = 0; i < blobs.length; i++) {
+    for (let j = i + 1; j < blobs.length; j++) {
+      const a = blobs[i], c = blobs[j];
+      const dx = c.x - a.x;
+      const dy = c.y - a.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const minDist = a.radius + c.radius;
+      if (dist > 0 && dist < minDist) {
+        const overlap = (minDist - dist) / 2;
+        const ux = dx / dist, uy = dy / dist;
+        if (a !== draggingBlob) { a.x -= ux * overlap; a.y -= uy * overlap; }
+        if (c !== draggingBlob) { c.x += ux * overlap; c.y += uy * overlap; }
+      }
+    }
+  }
+}
+
+let noiseTime = Math.random() * 1000;
+
 function animate(time) {
   requestAnimationFrame(animate);
   gooCtx.clearRect(0, 0, canvasGoo.width, canvasGoo.height);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  noiseTime += 0.004;
+  updatePhysics();
 
   let audioLevel = 0;
 
@@ -243,4 +301,20 @@ function hashColor(str) {
     h = str.charCodeAt(i) + ((h << 5) - h);
   }
   return h % 360;
+}
+
+// smooth 1D value noise (cheap perlin-like drift): interpolates
+// between pseudo-random lattice values instead of jumping around
+function noise(seed, t) {
+  const i = Math.floor(t);
+  const f = t - i;
+  const a = pseudoRandom(seed + i);
+  const b = pseudoRandom(seed + i + 1);
+  const u = f * f * (3 - 2 * f);
+  return a + u * (b - a);
+}
+
+function pseudoRandom(n) {
+  const x = Math.sin(n * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
 }
