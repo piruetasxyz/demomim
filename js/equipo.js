@@ -23,20 +23,32 @@ function init(equipo) {
   let phase = Math.random() * Math.PI * 2;
   let noiseTime = Math.random() * 1000;
 
-  // blob size in px, kept in sync with css/equipo.css .blob size
-  const blobSize = () => innerWidth <= 600 ? 64 : 100;
+  // base blob size in px, kept in sync with css/equipo.css .blob size.
+  // people with more text (name + institución) get a bigger circle so
+  // their text isn't clipped by the circular overflow.
+  const baseBlobSize = () => innerWidth <= 600 ? 64 : 100;
 
   const posiciones = posicionesGrid(equipo.length, innerWidth, innerHeight);
 
   equipo.forEach((p, i) => {
 
+    const institucion = innerWidth <= 600
+      ? p["institucion-corto"]
+      : p["institucion-largo"];
+
+    const base = baseBlobSize();
+    const textLen = p.nombre.length + institucion.length;
+    const size = Math.min(base * 1.5, base + Math.max(0, textLen - 28) * 1.5);
+    const half = size / 2;
+
     const el = document.createElement("div");
     el.className = "blob";
+    el.style.width = `${size}px`;
+    el.style.height = `${size}px`;
 
-    const size = blobSize();
-    const half = size / 2;
     const blob = {
       el,
+      size,
       x: posiciones[i].cx - half,
       y: posiciones[i].cy - half,
       homeX: posiciones[i].cx - half,
@@ -47,10 +59,6 @@ function init(equipo) {
       hue: hashColor(p.nombre),
       dragging: false
     };
-
-    const institucion = innerWidth <= 600
-      ? p["institucion-corto"]
-      : p["institucion-largo"];
 
     el.innerHTML = `
       <div class="content">
@@ -69,8 +77,8 @@ function init(equipo) {
 
     addEventListener("pointermove", e => {
       if (!blob.dragging) return;
-      blob.x = e.clientX - ox;
-      blob.y = e.clientY - oy;
+      blob.x = clamp(e.clientX - ox, 0, innerWidth - blob.size);
+      blob.y = clamp(e.clientY - oy, 0, innerHeight - blob.size);
     });
 
     addEventListener("pointerup", () => blob.dragging = false);
@@ -84,10 +92,6 @@ function init(equipo) {
 
     phase += 0.02;
     noiseTime += 0.004;
-
-    const size = blobSize();
-    const half = size / 2;
-    const metaballR = size * 0.34;
 
     // gentle perlin-like drift around each blob's home slot, so the
     // constellation stays put overall but doesn't feel frozen
@@ -108,20 +112,32 @@ function init(equipo) {
 
       b.x += b.vx;
       b.y += b.vy;
+
+      b.x = clamp(b.x, 0, innerWidth - b.size);
+      b.y = clamp(b.y, 0, innerHeight - b.size);
     });
 
-    // bounce blobs off each other when they overlap
+    // push blobs apart when they overlap — including out of the way
+    // of whichever blob is being dragged, but the dragged blob itself
+    // always stays exactly under the pointer
     for (let i = 0; i < blobs.length; i++) {
       for (let j = i + 1; j < blobs.length; j++) {
         const a = blobs[i], c = blobs[j];
-        const dx = (c.x + half) - (a.x + half);
-        const dy = (c.y + half) - (a.y + half);
+        const dx = (c.x + c.size/2) - (a.x + a.size/2);
+        const dy = (c.y + c.size/2) - (a.y + a.size/2);
         const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist > 0 && dist < size) {
-          const overlap = (size - dist) / 2;
+        const minDist = a.size/2 + c.size/2;
+        if (dist > 0 && dist < minDist) {
+          const overlap = (minDist - dist) / 2;
           const ux = dx / dist, uy = dy / dist;
-          if (!a.dragging) { a.x -= ux * overlap; a.y -= uy * overlap; }
-          if (!c.dragging) { c.x += ux * overlap; c.y += uy * overlap; }
+          if (!a.dragging) {
+            a.x = clamp(a.x - ux * overlap, 0, innerWidth - a.size);
+            a.y = clamp(a.y - uy * overlap, 0, innerHeight - a.size);
+          }
+          if (!c.dragging) {
+            c.x = clamp(c.x + ux * overlap, 0, innerWidth - c.size);
+            c.y = clamp(c.y + uy * overlap, 0, innerHeight - c.size);
+          }
         }
       }
     }
@@ -129,6 +145,8 @@ function init(equipo) {
     blobs.forEach(b => {
 
       const s = 1 + Math.sin(phase) * 0.08;
+      const half = b.size / 2;
+      const metaballR = b.size * 0.34;
 
       const x = Number.isFinite(b.x) ? b.x : 0;
       const y = Number.isFinite(b.y) ? b.y : 0;
@@ -180,6 +198,10 @@ function hashColor(str) {
     h = str.charCodeAt(i) + ((h<<5)-h);
   }
   return h % 360;
+}
+
+function clamp(v, min, max) {
+  return Math.min(max, Math.max(min, v));
 }
 
 // smooth 1D value noise (cheap perlin-like drift): interpolates

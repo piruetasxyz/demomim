@@ -201,8 +201,9 @@ canvas.addEventListener("pointermove", (e) => {
     return;
   }
 
-  draggingBlob.x = mx;
-  draggingBlob.y = my;
+  const r = draggingBlob.baseRadius;
+  draggingBlob.x = clamp(mx, r, canvas.width - r);
+  draggingBlob.y = clamp(my, r, canvas.height - r);
 
   if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) moved = true;
 });
@@ -249,8 +250,14 @@ function updatePhysics() {
 
     b.x += b.vx;
     b.y += b.vy;
+
+    b.x = clamp(b.x, b.baseRadius, canvas.width - b.baseRadius);
+    b.y = clamp(b.y, b.baseRadius, canvas.height - b.baseRadius);
   });
 
+  // push blobs apart when they overlap — including out of the way of
+  // whichever blob is being dragged, but the dragged blob itself
+  // always stays exactly under the pointer
   for (let i = 0; i < blobs.length; i++) {
     for (let j = i + 1; j < blobs.length; j++) {
       const a = blobs[i], c = blobs[j];
@@ -261,8 +268,14 @@ function updatePhysics() {
       if (dist > 0 && dist < minDist) {
         const overlap = (minDist - dist) / 2;
         const ux = dx / dist, uy = dy / dist;
-        if (a !== draggingBlob) { a.x -= ux * overlap; a.y -= uy * overlap; }
-        if (c !== draggingBlob) { c.x += ux * overlap; c.y += uy * overlap; }
+        if (a !== draggingBlob) {
+          a.x = clamp(a.x - ux * overlap, a.baseRadius, canvas.width - a.baseRadius);
+          a.y = clamp(a.y - uy * overlap, a.baseRadius, canvas.height - a.baseRadius);
+        }
+        if (c !== draggingBlob) {
+          c.x = clamp(c.x + ux * overlap, c.baseRadius, canvas.width - c.baseRadius);
+          c.y = clamp(c.y + uy * overlap, c.baseRadius, canvas.height - c.baseRadius);
+        }
       }
     }
   }
@@ -301,6 +314,10 @@ function hashColor(str) {
     h = str.charCodeAt(i) + ((h << 5) - h);
   }
   return h % 360;
+}
+
+function clamp(v, min, max) {
+  return Math.min(max, Math.max(min, v));
 }
 
 // smooth 1D value noise (cheap perlin-like drift): interpolates

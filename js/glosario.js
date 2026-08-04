@@ -88,8 +88,9 @@ function init(glosario) {
     addEventListener("pointermove", e => {
       if (!blob.dragging) return;
       const rect = contenedor.getBoundingClientRect();
-      blob.x = (e.clientX - rect.left) - ox;
-      blob.y = (e.clientY - rect.top) - oy;
+      const size = blobSize();
+      blob.x = clamp((e.clientX - rect.left) - ox, 0, contW - size);
+      blob.y = clamp((e.clientY - rect.top) - oy, 0, contH - size);
       if (Math.hypot(e.clientX - startX, e.clientY - startY) > 8) moved = true;
     });
 
@@ -134,9 +135,14 @@ function init(glosario) {
 
       b.x += b.vx;
       b.y += b.vy;
+
+      b.x = clamp(b.x, 0, contW - size);
+      b.y = clamp(b.y, 0, contH - size);
     });
 
-    // bounce blobs off each other when they overlap
+    // push blobs apart when they overlap — including out of the way
+    // of whichever blob is being dragged, but the dragged blob itself
+    // always stays exactly under the pointer
     for (let i = 0; i < blobs.length; i++) {
       for (let j = i + 1; j < blobs.length; j++) {
         const a = blobs[i], c = blobs[j];
@@ -146,8 +152,14 @@ function init(glosario) {
         if (dist > 0 && dist < size) {
           const overlap = (size - dist) / 2;
           const ux = dx / dist, uy = dy / dist;
-          if (!a.dragging) { a.x -= ux * overlap; a.y -= uy * overlap; }
-          if (!c.dragging) { c.x += ux * overlap; c.y += uy * overlap; }
+          if (!a.dragging) {
+            a.x = clamp(a.x - ux * overlap, 0, contW - size);
+            a.y = clamp(a.y - uy * overlap, 0, contH - size);
+          }
+          if (!c.dragging) {
+            c.x = clamp(c.x + ux * overlap, 0, contW - size);
+            c.y = clamp(c.y + uy * overlap, 0, contH - size);
+          }
         }
       }
     }
@@ -245,6 +257,10 @@ function hashColor(str) {
     h = str.charCodeAt(i) + ((h<<5)-h);
   }
   return h % 360;
+}
+
+function clamp(v, min, max) {
+  return Math.min(max, Math.max(min, v));
 }
 
 // smooth 1D value noise (cheap perlin-like drift): interpolates
