@@ -25,10 +25,11 @@ fetch(`${base}datos/glosario.yaml`)
   .then(t => init(jsyaml.load(t).glosario));
 
 // ===== SYSTEM =====
-// each glosario entry sits at a fixed grid position, like a
-// constellation that doesn't drift on its own (same approach as
-// js/audios.js) — blobs only move when dragged. clicking (without
-// dragging) a blob opens the panel and cycles to its next definicion.
+// each glosario entry starts at a fixed grid position (same approach
+// as js/audios.js), then wanders freely via slow noise-driven drift
+// and bounces off other blobs — nothing pulls it back. clicking
+// (without dragging) a blob opens the panel and cycles to its next
+// definicion.
 function init(glosario) {
 
   const blobs = [];
@@ -50,8 +51,6 @@ function init(glosario) {
       el,
       x: posiciones[i].cx - half,
       y: posiciones[i].cy - half,
-      homeX: posiciones[i].cx - half,
-      homeY: posiciones[i].cy - half,
       vx: 0,
       vy: 0,
       noiseSeed: Math.random() * 1000,
@@ -116,8 +115,8 @@ function init(glosario) {
     const half = size / 2;
     const metaballR = size * 0.34;
 
-    // gentle perlin-like drift around each blob's home slot, so the
-    // constellation stays put overall but doesn't feel frozen
+    // gentle perlin-like drift, unbounded — blobs wander and stay
+    // wherever they end up instead of homing back
     blobs.forEach(b => {
       if (b.dragging) return;
 
@@ -125,10 +124,6 @@ function init(glosario) {
       const ny = noise(b.noiseSeed + 500, noiseTime) - 0.5;
       b.vx += nx * 0.02;
       b.vy += ny * 0.02;
-
-      // weak spring back to the home slot, keeps drift bounded
-      b.vx += (b.homeX - b.x) * 0.002;
-      b.vy += (b.homeY - b.y) * 0.002;
 
       b.vx *= 0.9;
       b.vy *= 0.9;

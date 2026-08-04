@@ -14,9 +14,10 @@ fetch('./../datos/equipo.yaml')
   .then(t => init(jsyaml.load(t).equipo));
 
 // ===== SYSTEM =====
-// Fixed grid layout, like a constellation that doesn't drift on its
-// own (same approach as js/audios.js) — blobs only move when dragged.
-// Color is per person, for the same individual variety as glosario.
+// Starts from a fixed grid layout (same approach as js/audios.js),
+// then each blob wanders freely via slow noise-driven drift and
+// bounces off the others — nothing pulls it back. Color is per
+// person, for the same individual variety as glosario.
 function init(equipo) {
 
   const blobs = [];
@@ -51,8 +52,6 @@ function init(equipo) {
       size,
       x: posiciones[i].cx - half,
       y: posiciones[i].cy - half,
-      homeX: posiciones[i].cx - half,
-      homeY: posiciones[i].cy - half,
       vx: 0,
       vy: 0,
       noiseSeed: Math.random() * 1000,
@@ -93,8 +92,8 @@ function init(equipo) {
     phase += 0.02;
     noiseTime += 0.004;
 
-    // gentle perlin-like drift around each blob's home slot, so the
-    // constellation stays put overall but doesn't feel frozen
+    // gentle perlin-like drift, unbounded — blobs wander and stay
+    // wherever they end up instead of homing back
     blobs.forEach(b => {
       if (b.dragging) return;
 
@@ -102,10 +101,6 @@ function init(equipo) {
       const ny = noise(b.noiseSeed + 500, noiseTime) - 0.5;
       b.vx += nx * 0.02;
       b.vy += ny * 0.02;
-
-      // weak spring back to the home slot, keeps drift bounded
-      b.vx += (b.homeX - b.x) * 0.002;
-      b.vy += (b.homeY - b.y) * 0.002;
 
       b.vx *= 0.9;
       b.vy *= 0.9;

@@ -54,8 +54,6 @@ class Blob {
   constructor(x, y, radius, hue, label, playerIndex) {
     this.x = x;
     this.y = y;
-    this.homeX = x;
-    this.homeY = y;
     this.vx = 0;
     this.vy = 0;
     this.driftSeed = Math.random() * 1000;
@@ -229,9 +227,9 @@ canvas.addEventListener("pointerleave", () => {
 
 // --- Animation ---
 
-// gentle perlin-like drift around each blob's home slot, plus a
-// bounce apart when two blobs overlap, so the layout stays put
-// overall but doesn't feel frozen
+// gentle perlin-like drift, unbounded — blobs wander and stay
+// wherever they end up instead of homing back — plus a bounce apart
+// when two blobs overlap
 function updatePhysics() {
   blobs.forEach(b => {
     if (b === draggingBlob) return;
@@ -240,10 +238,6 @@ function updatePhysics() {
     const ny = noise(b.driftSeed + 500, noiseTime) - 0.5;
     b.vx += nx * 0.02;
     b.vy += ny * 0.02;
-
-    // weak spring back to the home slot, keeps drift bounded
-    b.vx += (b.homeX - b.x) * 0.002;
-    b.vy += (b.homeY - b.y) * 0.002;
 
     b.vx *= 0.9;
     b.vy *= 0.9;
