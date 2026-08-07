@@ -93,63 +93,91 @@ html, body {
   color: #ec6608;
 }
 
-/* definicion panel */
-#mim-glosario-panel {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.85);
-  /* por encima de cualquier header/overlay del sitio anfitrión */
+/* burbuja de definicion, estilo comic — nace del blob en vez de
+   cubrir la pantalla. su posición y color se calculan en js según
+   el blob que la abrió (ver posicionarBurbuja en js/glosario.js) */
+#mim-glosario-burbuja {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  max-width: calc(100% - 16px);
+  background: #ffffff;
+  border: 3px solid var(--mim-glosario-burbuja-color, #ec6608);
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   z-index: 100000;
-  /* el fondo es click-through, así los blobs debajo siguen siendo
-     tocables — tocar el mismo concepto (u otro) con el panel abierto
-     simplemente cambia el contenido en vez de quedar atascado
-     necesitando cerrar el panel primero */
+  pointer-events: auto;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  /* overflow stays visible here so the tail (positioned outside the
+     box) doesn't get clipped — scrolling happens on the inner
+     content div instead */
+}
+
+#mim-glosario-burbuja.mim-glosario-oculto {
+  opacity: 0;
+  transform: scale(0.92);
   pointer-events: none;
 }
 
-#mim-glosario-panel.mim-glosario-oculto {
-  display: none;
-}
-
-#mim-glosario-panel-contenido {
-  position: relative;
-  max-width: 640px;
-  max-height: 80vh;
-  width: 100%;
-  overflow-y: auto;
-  background: #ffffff;
-  border: 2px solid #ec6608;
-  border-radius: 24px;
-  padding: 2rem;
-  box-sizing: border-box;
-  pointer-events: auto;
-}
-
 @media (max-width: 600px) {
-  #mim-glosario-panel-contenido {
-    max-height: 76vh;
-    padding: 1.5rem;
-    border-radius: 16px;
+  #mim-glosario-burbuja {
+    width: 260px;
   }
 }
 
-#mim-glosario-panel-contenido h2 {
+/* cola triangular que apunta hacia el blob que abrió la burbuja */
+#mim-glosario-burbuja::after {
+  content: "";
+  position: absolute;
+  left: var(--mim-glosario-cola-x, 50%);
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 3px solid var(--mim-glosario-burbuja-color, #ec6608);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+#mim-glosario-burbuja[data-cola="abajo"]::after {
+  bottom: -12px;
+  border-top: none;
+  border-left: none;
+}
+
+#mim-glosario-burbuja[data-cola="arriba"]::after {
+  top: -12px;
+  border-bottom: none;
+  border-right: none;
+}
+
+#mim-glosario-burbuja-contenido {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 1.25rem 1.6rem 1.25rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #mim-glosario-burbuja-contenido {
+    max-height: 56vh;
+    padding: 1rem 1.2rem 1rem 1.1rem;
+  }
+}
+
+#mim-glosario-burbuja-contenido h2 {
   margin-top: 0;
-  color: #ec6608;
+  color: var(--mim-glosario-burbuja-color, #ec6608);
   font-weight: 700;
 }
 
-#mim-glosario-panel-contenido .mim-glosario-texto {
+#mim-glosario-burbuja-contenido .mim-glosario-texto {
   color: #000;
   line-height: 1.5;
   white-space: pre-line;
 }
 
-#mim-glosario-panel-contenido .mim-glosario-imagen {
+#mim-glosario-burbuja-contenido .mim-glosario-imagen {
   display: block;
   max-width: 100%;
   height: auto;
@@ -157,37 +185,29 @@ html, body {
   border-radius: 8px;
 }
 
-#mim-glosario-panel-contenido .mim-glosario-firma {
+#mim-glosario-burbuja-contenido .mim-glosario-firma {
   color: #555;
   font-size: 0.9rem;
 }
 
-#mim-glosario-panel-contenido .mim-glosario-contador {
-  color: #ec6608;
+#mim-glosario-burbuja-contenido .mim-glosario-contador {
+  color: var(--mim-glosario-burbuja-color, #ec6608);
   font-size: 0.85rem;
   font-style: italic;
 }
 
 #mim-glosario-cerrar {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 44px;
-  height: 44px;
-  border: 2px solid #ec6608;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  width: 26px;
+  height: 26px;
+  border: none;
   border-radius: 50%;
-  background: #ffffff;
-  color: #ec6608;
-  font-size: 1.5rem;
+  background: transparent;
+  color: var(--mim-glosario-burbuja-color, #ec6608);
+  font-size: 1.3rem;
   line-height: 1;
   cursor: pointer;
-  z-index: 100001;
   pointer-events: auto;
-}
-
-@media (max-width: 600px) {
-  #mim-glosario-cerrar {
-    top: 1rem;
-    right: 1rem;
-  }
 }
