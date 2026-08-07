@@ -486,11 +486,6 @@ function bindControls() {
     state.fontSize = parseInt(e.target.value, 10);
     buildScene();
   });
-
-  $('btn-randomize').addEventListener('click', () => {
-    const tpl = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
-    applyTemplate(tpl.id);
-  });
 }
 
 // ── Templates UI ──────────────────────────────────────────────────────────────
@@ -512,9 +507,6 @@ function buildTemplatesUI() {
     group.appendChild(btn);
     bar.appendChild(group);
   });
-
-  // Move the randomize button after the template buttons it was inserted before
-  bar.appendChild(document.getElementById('btn-randomize').closest('.control-group'));
 }
 
 // ── Init & data loading ───────────────────────────────────────────────────────
