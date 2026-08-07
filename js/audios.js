@@ -51,7 +51,7 @@ async function initAudio() {
 
 // --- Blob ---
 class Blob {
-  constructor(x, y, radius, hue, label, playerIndex) {
+  constructor(x, y, radius, hue, concepto, persona, playerIndex) {
     this.x = x;
     this.y = y;
     this.vx = 0;
@@ -60,7 +60,8 @@ class Blob {
     this.baseRadius = radius;
     this.radius = radius;
     this.hue = hue;
-    this.label = label;
+    this.concepto = concepto;
+    this.persona = persona;
     this.playerIndex = playerIndex;
     this.noiseOffset = Math.random() * 1000;
 
@@ -92,13 +93,20 @@ class Blob {
     gooCtx.fill();
   }
 
-  // crisp label, drawn unblurred on top of the goo layer
+  // crisp label, drawn unblurred on top of the goo layer: the
+  // glosario concept on top (bold), the person's name below (lighter)
   drawLabel() {
-    ctx.fillStyle = "#ec6608";
-    ctx.font = "700 16px 'area', sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(this.label, this.x, this.y);
+
+    ctx.fillStyle = "#ec6608";
+    ctx.font = "700 15px 'area', sans-serif";
+    ctx.fillText(this.concepto, this.x, this.y - 9);
+
+    ctx.globalAlpha = 0.8;
+    ctx.font = "400 12px 'area', sans-serif";
+    ctx.fillText(this.persona, this.x, this.y + 9);
+    ctx.globalAlpha = 1;
   }
 
   update(audioLevel) {
@@ -151,7 +159,7 @@ function crearBlobs(entries) {
     const x = padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2;
     const y = padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2;
 
-    return new Blob(x, y, radius, hashColor(entry.archivo), entry.persona, i);
+    return new Blob(x, y, radius, hashColor(entry.archivo), entry.concepto, entry.persona, i);
   });
 }
 
