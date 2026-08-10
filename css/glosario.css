@@ -27,14 +27,44 @@ html, body {
   font-weight: 400;
 }
 
-.mim-glosario-titulo {
+.mim-glosario-encabezado {
   position: absolute;
   top: 0;
   left: 0;
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+
+.mim-glosario-titulo {
+  margin: 0;
   font-weight: 700;
   color: #ec6608;
   pointer-events: none;
+}
+
+.mim-glosario-volver {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ec6608;
+  background: #ffffff;
+  border: 1.5px solid #ec6608;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mim-glosario-volver:hover,
+.mim-glosario-volver:focus-visible {
+  background: #ec6608;
+  color: #ffffff;
 }
 
 #mim-glosario-canvas {
