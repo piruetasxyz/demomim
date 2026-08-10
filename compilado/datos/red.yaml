@@ -1,0 +1,100 @@
+constellation:
+  name: "red"
+nodes:
+  - id: preguntaQueEntendemos
+    label: "¿Qué entendemos por regenerar?"
+    hierarchy: 0
+  - id: preguntaSePuedeRegenerarSinSentidoDeComunidad
+    label: "¿Se puede regenerar sin sentido de comunidad?"
+    hierarchy: 2
+  - id: preguntaEquilibrioRecuperadoONuevo
+    label: "¿Regenerar tiene que ver con un equilibrio recuperado o con la generación de un nuevo equilibrio?"
+    hierarchy: 2
+  - id: preguntaRiesgoOportunidad
+    label: "¿Qué proceso o evento es percibido cómo un riesgo, pero puede ser resignificado como una oportunidad?"
+    hierarchy: 2
+  - id: preguntaQueEsHerida
+    label: "¿Qué es una herida?"
+    hierarchy: 2
+  - id: preguntaCadaCuantoTiempoMides
+    label: "¿Cada cuánto tiempo mides lo que te importa?"
+    hierarchy: 2
+  - id: preguntaQueEsUnaEra
+    label: "¿Qué es para ti una era?"
+    hierarchy: 2
+  - id: preguntaQueTieneValor
+    label: "¿Qué tiene valor para ti hoy, que lo tuvo ayer y que puede tenerlo mañana?"
+    hierarchy: 2
+  - id: preguntaComoRegenerarRompiendoFronteras
+    label: "¿Cómo regenerar y a la vez romper las fronteras de clases sociales?"
+    hierarchy: 2
+  - id: preguntaAsociamosAbandono
+    label: "¿Qué asociamos con el abandono, con la falta de cuidado?"
+    hierarchy: 2
+
+  - id: preguntaComoPiensanLosBosques
+    label: "¿Cómo piensan los bosques?"
+    hierarchy: 1
+  - id: sanar
+    label: "Sanar"
+    hierarchy: 2
+  - id: preguntaQueEsLaMaleza
+    label: "¿Qué es la maleza?"  
+    hierarchy: 2
+  - id: preguntaDesarrollarDesarrugarMultidimensionalidad
+    label: "desenvolver/desarrugar  ¿multidimensionalidad?"  
+    hierarchy: 2
+  - id: preguntaComoSeGeneraLaTransformacion
+    label: "¿Como se genera la transformación? ¿Cómo ocurre la curiosidad?"  
+    hierarchy: 2
+  - id: preguntaDehiscencia
+    label: "DEHISCENCIA: fruto o vaina que se abre para liberar semillas ¿grietas, surcos, fracturar para abrir?"  
+    hierarchy: 2
+  # - id: bla
+  #   label: "bla"  
+  #   hierarchy: 1
+  # - id: bla
+  #   label: "bla"  
+  #   hierarchy: 1
+  # - id: bla
+  #   label: "bla"  
+  #   hierarchy: 1
+  # - id: bla
+  #   label: "bla"  
+  #   hierarchy: 1
+  # - id: bla
+  #   label: "bla"  
+  #   hierarchy: 1
+  
+edges:
+  - source: preguntaQueEntendemos
+    target: preguntaSePuedeRegenerarSinSentidoDeComunidad
+  - source: preguntaQueEntendemos
+    target: preguntaEquilibrioRecuperadoONuevo
+  - source: preguntaQueEntendemos
+    target: preguntaRiesgoOportunidad
+  - source: preguntaQueEntendemos
+    target: preguntaQueEsHerida
+  - source: preguntaQueEntendemos
+    target: preguntaCadaCuantoTiempoMides
+  - source: preguntaQueEntendemos
+    target: preguntaQueEsUnaEra
+  - source: preguntaQueEntendemos
+    target: preguntaQueTieneValor
+  - source: preguntaQueEntendemos
+    target: preguntaComoRegenerarRompiendoFronteras 
+  - source: preguntaQueEntendemos
+    target: preguntaAsociamosAbandono
+  - source: preguntaQueEntendemos
+    target: preguntaComoPiensanLosBosques
+  - source: preguntaComoPiensanLosBosques
+    target: sanar
+  - source: preguntaComoPiensanLosBosques
+    target: preguntaQueEsLaMaleza
+  - source: preguntaComoPiensanLosBosques
+    target: preguntaDesarrollarDesarrugarMultidimensionalidad
+  - source: preguntaComoPiensanLosBosques
+    target: preguntaComoSeGeneraLaTransformacion
+  - source: preguntaComoPiensanLosBosques
+    target: preguntaDehiscencia
+  

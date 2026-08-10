@@ -4,29 +4,117 @@ body {
     background: #ffffff;
     color: #ec6608;
     margin: 0;
-    padding: 20px;
 }
 
-h1 {
+.volver {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #ec6608;
-}
-
-ul {
-    padding: 0;
-    list-style: none;
-}
-
-li {
-    margin: 8px 0;
-}
-
-a {
-    color: #ec6608;
+    background: #ffffff;
+    border: 1.5px solid #ec6608;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
     text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.volver:hover,
+.volver:focus-visible {
+    background: #ec6608;
+    color: #ffffff;
+}
+
+.inicio {
+    box-sizing: border-box;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.inicio-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.inicio-kicker {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.inicio-titulo {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+}
+
+.inicio-descripcion {
+    margin: 0 auto;
+    max-width: 46ch;
+    font-size: 1.05rem;
+    line-height: 1.5;
     font-weight: 400;
 }
 
-a:hover {
-    text-decoration: underline;
+.inicio-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 520px) {
+    .inicio-nav {
+        grid-template-columns: 1fr;
+    }
+}
+
+.inicio-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    border: 1.5px solid #ec6608;
+    border-radius: 20px;
+    color: #ec6608;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.inicio-tarjeta:hover,
+.inicio-tarjeta:focus-visible {
+    background: #ec6608;
+    color: #ffffff;
+}
+
+.inicio-tarjeta-titulo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.inicio-tarjeta-texto {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.inicio-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.inicio-footer p {
+    margin: 0;
 }

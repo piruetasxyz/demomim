@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  background: #ffffff;
+  overflow: hidden;
+  font-family: "Mirador", sans-serif;
+  color: #ec6608;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+/* blurred layer underneath: creates the gooey/metaball blob look,
+   same trick as css/glosario.css (blur + contrast + saturate) */
+#canvas-goo {
+  filter: blur(18px) contrast(180%) saturate(140%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* crisp layer on top: labels only, plus it owns pointer events */
+#canvas {
+  z-index: 2;
+}
+
+.encabezado {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.titulo {
+  margin: 0;
+  font-weight: 700;
+  color: #ec6608;
+  pointer-events: none;
+}
+
+.volver {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ec6608;
+  background: #ffffff;
+  border: 1.5px solid #ec6608;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.volver:hover,
+.volver:focus-visible {
+  background: #ec6608;
+  color: #ffffff;
+}

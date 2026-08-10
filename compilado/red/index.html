@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>red</title>
+
+  <!--
+    ⚠  fetch() requires HTTP — it will not work when opened as a local file (file://).
+    For local development, serve this directory over HTTP:
+
+      npx serve .
+        or
+      python -m http.server
+
+    Then open http://localhost:3000 (or whichever port is shown).
+  -->
+
+  <link rel="stylesheet" href="https://use.typekit.net/naa5mvy.css">
+  <link rel="stylesheet" href="./../css/tipografias.css">
+  <link rel="stylesheet" href="./../css/red.css">
+  <script src="./../lib/js-yaml.min.js"></script>
+</head>
+<body>
+
+  <div class="encabezado">
+    <h1 class="titulo">Red</h1>
+    <a class="volver" href="./../">&larr; volver</a>
+  </div>
+
+  <div id="error-msg" class="error-msg" role="alert"></div>
+
+  <svg id="main-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Visualización de constelación"></svg>
+
+  <div id="control-bar" class="control-bar" role="toolbar" aria-label="Controles de visualización">
+
+    <div class="control-group">
+      <label class="control-label" for="font-size">Tamaño</label>
+      <input type="range" id="font-size" min="10" max="22" step="1" value="14">
+    </div>
+
+    <!-- template buttons injected here by buildTemplatesUI() -->
+
+  </div>
+
+  <h2>demos</h2>
+  <script src="./../js/red.js"></script>
+  <script src="./../js/audios.js"></script>
+
+</body>
+</html>

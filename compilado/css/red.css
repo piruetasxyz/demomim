@@ -1,0 +1,293 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: "Mirador", sans-serif;
+}
+
+/* ── Title ──────────────────────────────────────────────────────────────── */
+
+.encabezado {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+
+.titulo {
+  margin: 0;
+  font-weight: 700;
+  color: #ec6608;
+  pointer-events: none;
+}
+
+.volver {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ec6608;
+  background: #ffffff;
+  border: 1.5px solid #ec6608;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.volver:hover,
+.volver:focus-visible {
+  background: #ec6608;
+  color: #ffffff;
+}
+
+/* ── SVG canvas ─────────────────────────────────────────────────────────── */
+
+#main-svg {
+  display: block;
+  width: 100vw;
+  height: calc(100vh - 52px);
+  background: #ffffff;
+  touch-action: none;
+}
+
+/* Draggable node labels */
+#main-svg [data-node-id] {
+  cursor: grab;
+  transition: opacity 0.18s;
+  opacity: 0.88;
+}
+#main-svg [data-node-id]:hover {
+  opacity: 1;
+}
+#main-svg.dragging {
+  cursor: grabbing;
+}
+#main-svg.dragging [data-node-id] {
+  cursor: grabbing;
+}
+
+/* ── Error banner ───────────────────────────────────────────────────────── */
+
+.error-msg {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #ec6608;
+  color: #ec6608;
+  font-family: "Mirador", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 460px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(236, 102, 8, 0.15);
+}
+
+/* ── Control bar ────────────────────────────────────────────────────────── */
+
+.control-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+  background: #ffffff;
+  border-top: 1px solid #ec6608;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-label {
+  font-family: "Mirador", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #ec6608;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Range sliders ──────────────────────────────────────────────────────── */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 78px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(236, 102, 8, 0.2);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ec6608;
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ec6608;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── Select ─────────────────────────────────────────────────────────────── */
+
+select {
+  font-family: "Mirador", sans-serif;
+  font-size: 11px;
+  color: #ec6608;
+  border: 1px solid #ec6608;
+  border-radius: 3px;
+  padding: 3px 6px;
+  background: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+
+select:hover {
+  background: #ec6608;
+  color: #ffffff;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+
+button {
+  font-family: "Mirador", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #ec6608;
+  border: 1px solid #ec6608;
+  border-radius: 3px;
+  background: #ffffff;
+  padding: 5px 11px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: background 0.1s, color 0.1s;
+}
+
+button:hover {
+  background: #ec6608;
+  color: #ffffff;
+}
+
+button:active {
+  background: #ec6608;
+  color: #ffffff;
+}
+
+.template-btn.active {
+  background: #ec6608;
+  color: #ffffff;
+  border-color: #ec6608;
+}
+
+/* ── Responsive / Mobile ─────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  :root { --bar-h: 92px; }
+
+  /* Two-row control bar */
+  .control-bar {
+    height: var(--bar-h);
+    flex-wrap: wrap;
+    align-content: space-around;
+    gap: 0 10px;
+    padding: 6px 14px;
+  }
+
+  /* Hide text labels — the controls are self-explanatory on touch */
+  .control-label {
+    display: none;
+  }
+
+  /* First group (slider): fill row 1 */
+  .control-bar > .control-group:nth-child(-n+1) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* Button groups (2+): auto-size, stay on row 2 */
+  .control-bar > .control-group:nth-child(n+2) {
+    flex: 0 0 auto;
+  }
+
+  /* Range sliders: bigger thumb for touch */
+  input[type="range"] {
+    width: 60px;
+    height: 4px;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ec6608;
+    cursor: pointer;
+    border: none;
+  }
+
+  /* Select: compact but readable */
+  select {
+    font-size: 12px;
+    padding: 4px 6px;
+    max-width: 90px;
+  }
+
+  /* Buttons: taller tap target */
+  button {
+    padding: 6px 12px;
+    font-size: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* SVG canvas: account for taller bar */
+  #main-svg {
+    height: calc(100vh - var(--bar-h));
+  }
+}

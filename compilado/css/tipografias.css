@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Mirador";
+  src: url("../tipografias/Mirador/Variable Web/MiradorVF.woff2") format("woff2-variations"),
+       url("../tipografias/Mirador/Variable Web/MiradorVF.woff") format("woff-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
