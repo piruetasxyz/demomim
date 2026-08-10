@@ -3,11 +3,22 @@ const gooCtx = canvasGoo.getContext("2d");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+let blobs = [];
+// center point that playing blobs draw their waveform connection to;
+// crearBlobs() moves this once it knows the real grid gap, this is
+// just where it sits before the data has loaded
+let hub = { x: 0, y: 0 };
+
 function resize() {
   canvasGoo.width = window.innerWidth;
   canvasGoo.height = window.innerHeight;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  if (blobs.length === 0) {
+    hub.x = canvas.width / 2;
+    hub.y = canvas.height / 2;
+  }
 }
 resize();
 window.addEventListener("resize", resize);
@@ -15,16 +26,16 @@ window.addEventListener("resize", resize);
 // --- Audio ---
 let entries = [];
 let players = [];
-let analyser;
+let analysers = []; // one waveform analyser per player, so each connecting line can show its own track's waveform
 
 async function initAudio() {
   await Tone.start();
 
-  analyser = new Tone.Analyser("waveform", 64);
-
   players = entries.map(entry => {
     const player = new Tone.Player(`./../recursos/${entry.archivo}`).toDestination();
-    player.connect(analyser);
+    const playerAnalyser = new Tone.Analyser("waveform", 64);
+    player.connect(playerAnalyser);
+    analysers.push(playerAnalyser);
     return player;
   });
 
@@ -139,28 +150,40 @@ class Blob {
   }
 }
 
-// --- Create blobs, one per audio entry, arranged in a grid sized to fit them all ---
-let blobs = [];
-
+// --- Create blobs, one per audio entry, arranged in a grid sized to fit
+// them all, minus one cell near the middle left empty for the hub ---
 function crearBlobs(entries) {
   const n = entries.length;
   const cols = Math.ceil(Math.sqrt(n));
-  const rows = Math.ceil(n / cols);
+  let rows = Math.ceil(n / cols);
+  // grids that exactly fit n entries have no spare cell for the hub gap
+  if (cols * rows <= n) rows++;
 
   const padding = 80;
   const cellWidth = (canvas.width - padding * 2) / cols;
   const cellHeight = (canvas.height - padding * 2) / rows;
   const radius = Math.min(60, Math.max(30, Math.min(cellWidth, cellHeight) * 0.32));
 
-  return entries.map((entry, i) => {
-    const col = i % cols;
-    const row = Math.floor(i / cols);
+  const gapCol = Math.round((cols - 1) / 2);
+  const gapRow = Math.round((rows - 1) / 2);
+  hub.x = padding + cellWidth * (gapCol + 0.5);
+  hub.y = padding + cellHeight * (gapRow + 0.5);
 
-    const x = padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2;
-    const y = padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2;
+  const result = [];
+  let i = 0;
+  for (let row = 0; row < rows && i < n; row++) {
+    for (let col = 0; col < cols && i < n; col++) {
+      if (row === gapRow && col === gapCol) continue;
 
-    return new Blob(x, y, radius, hashColor(entry.archivo), entry.concepto, entry.persona, i);
-  });
+      const entry = entries[i];
+      const x = padding + cellWidth * (col + 0.5) + (Math.random() - 0.5) * cellWidth * 0.2;
+      const y = padding + cellHeight * (row + 0.5) + (Math.random() - 0.5) * cellHeight * 0.2;
+
+      result.push(new Blob(x, y, radius, hashColor(entry.archivo), entry.concepto, entry.persona, i));
+      i++;
+    }
+  }
+  return result;
 }
 
 fetch("./../datos/audios.yaml")
@@ -285,6 +308,50 @@ function updatePhysics() {
 
 let noiseTime = Math.random() * 1000;
 
+// waveform line from the center hub out to a playing blob, tapering to
+// zero amplitude at both ends so it reads as a "connection" rather than
+// a floating scribble
+function drawConnection(blob, values) {
+  const cx = hub.x;
+  const cy = hub.y;
+  const dx = blob.x - cx;
+  const dy = blob.y - cy;
+  const dist = Math.hypot(dx, dy) || 1;
+  const px = -dy / dist;
+  const py = dx / dist;
+
+  ctx.beginPath();
+  const n = values.length;
+  for (let i = 0; i <= n; i++) {
+    const t = i / n;
+    const bx = cx + dx * t;
+    const by = cy + dy * t;
+    const taper = Math.sin(t * Math.PI);
+    const amp = values[Math.min(i, n - 1)] * 40 * taper;
+
+    const x = bx + px * amp;
+    const y = by + py * amp;
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = `hsla(${blob.hue}, 70%, 55%, 0.8)`;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+}
+
+// central hub, always visible, pulsing when something is playing
+function drawHub(level) {
+  const r = 8 + level * 30;
+
+  ctx.beginPath();
+  ctx.arc(hub.x, hub.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = "#ec6608";
+  ctx.globalAlpha = 0.85;
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
 function animate(time) {
   requestAnimationFrame(animate);
   gooCtx.clearRect(0, 0, canvasGoo.width, canvasGoo.height);
@@ -293,15 +360,24 @@ function animate(time) {
   noiseTime += 0.004;
   updatePhysics();
 
-  let audioLevel = 0;
-
-  if (analyser) {
-    const values = analyser.getValue();
-    audioLevel = values.reduce((a, b) => a + Math.abs(b), 0) / values.length;
-  }
+  let totalLevel = 0;
+  let activeCount = 0;
 
   blobs.forEach(blob => {
-    blob.update(audioLevel);
+    const values = blob.isPlaying ? analysers[blob.playerIndex]?.getValue() : null;
+    const level = values ? values.reduce((a, b) => a + Math.abs(b), 0) / values.length : 0;
+    blob.update(level);
+
+    if (values) {
+      drawConnection(blob, values);
+      totalLevel += level;
+      activeCount++;
+    }
+  });
+
+  drawHub(activeCount ? totalLevel / activeCount : 0);
+
+  blobs.forEach(blob => {
     blob.drawGoo(time * 0.002);
     blob.drawLabel();
   });
