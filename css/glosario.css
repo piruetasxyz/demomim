@@ -100,8 +100,8 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 320px;
-  max-width: calc(100% - 16px);
+  width: 400px;
+  max-width: calc(100% - 24px);
   background: #ffffff;
   border: 3px solid var(--mim-glosario-burbuja-color, #ec6608);
   border-radius: 20px;
@@ -110,9 +110,6 @@ html, body {
   z-index: 100000;
   pointer-events: auto;
   transition: opacity 0.12s ease, transform 0.12s ease;
-  /* overflow stays visible here so the tail (positioned outside the
-     box) doesn't get clipped — scrolling happens on the inner
-     content div instead */
 }
 
 #mim-glosario-burbuja.mim-glosario-oculto {
@@ -127,35 +124,31 @@ html, body {
   }
 }
 
-/* cola triangular que apunta hacia el blob que abrió la burbuja */
-#mim-glosario-burbuja::after {
-  content: "";
-  position: absolute;
-  left: var(--mim-glosario-cola-x, 50%);
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  border: 3px solid var(--mim-glosario-burbuja-color, #ec6608);
-  transform: translateX(-50%) rotate(45deg);
-}
-
-#mim-glosario-burbuja[data-cola="abajo"]::after {
-  bottom: -12px;
-  border-top: none;
-  border-left: none;
-}
-
-#mim-glosario-burbuja[data-cola="arriba"]::after {
-  top: -12px;
-  border-bottom: none;
-  border-right: none;
-}
-
 #mim-glosario-burbuja-contenido {
+  /* altura real fijada en js (posicionarBurbuja), según el espacio
+     disponible del contenedor — este valor es solo un respaldo */
   max-height: 60vh;
   overflow-y: auto;
   padding: 1.25rem 1.6rem 1.25rem 1.5rem;
   box-sizing: border-box;
+  /* scrollbar siempre visible y coloreada: si un texto largo no cabe
+     entero, tiene que notarse que hay más para leer más abajo */
+  scrollbar-width: thin;
+  scrollbar-color: var(--mim-glosario-burbuja-color, #ec6608) #f0f0f0;
+}
+
+#mim-glosario-burbuja-contenido::-webkit-scrollbar {
+  width: 8px;
+}
+
+#mim-glosario-burbuja-contenido::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+#mim-glosario-burbuja-contenido::-webkit-scrollbar-thumb {
+  background: var(--mim-glosario-burbuja-color, #ec6608);
+  border-radius: 4px;
 }
 
 @media (max-width: 600px) {
@@ -163,6 +156,35 @@ html, body {
     max-height: 56vh;
     padding: 1rem 1.2rem 1rem 1.1rem;
   }
+}
+
+/* aviso de que queda texto por leer más abajo — nativa la scrollbar
+   sola no basta como pista (en mac/trackpad es invisible hasta que
+   se toca), así que este degradado + flecha se muestra en js
+   (actualizarDesborda en js/glosario.js) mientras el contenido no
+   esté scrolleado hasta el final */
+#mim-glosario-burbuja-desborda {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  height: 44px;
+  border-radius: 0 0 17px 17px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff 70%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mim-glosario-burbuja-color, #ec6608);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#mim-glosario-burbuja-desborda.mim-glosario-visible {
+  opacity: 1;
 }
 
 #mim-glosario-burbuja-contenido h2 {

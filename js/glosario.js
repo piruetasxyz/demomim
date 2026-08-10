@@ -123,6 +123,17 @@ function init(glosario) {
   // ===== BUBBLE =====
   const burbuja = document.getElementById("mim-glosario-burbuja");
   const burbujaContenido = document.getElementById("mim-glosario-burbuja-contenido");
+  const burbujaDesborda = document.getElementById("mim-glosario-burbuja-desborda");
+
+  // shows a "seguir leyendo" hint while there's more text below the
+  // visible area — native scrollbars alone aren't a reliable enough
+  // cue (macOS/trackpad browsers keep them invisible until touched)
+  function actualizarDesborda() {
+    const quedaTexto = burbujaContenido.scrollTop + burbujaContenido.clientHeight
+      < burbujaContenido.scrollHeight - 2;
+    burbujaDesborda.classList.toggle("mim-glosario-visible", quedaTexto);
+  }
+  burbujaContenido.addEventListener("scroll", actualizarDesborda);
 
   function mostrarDefinicion(blob) {
     const item = blob.item;
@@ -149,6 +160,7 @@ function init(glosario) {
     }
 
     burbujaContenido.innerHTML = html;
+    burbujaContenido.scrollTop = 0;
     burbuja.style.setProperty("--mim-glosario-burbuja-color", `hsl(${blob.hue}, 70%, 45%)`);
 
     if (blobAbierto && blobAbierto !== blob) blobAbierto.abierta = false;
@@ -157,12 +169,18 @@ function init(glosario) {
 
     burbuja.classList.remove("mim-glosario-oculto");
     posicionarBurbuja(blob);
+    actualizarDesborda();
+
+    // la imagen puede cambiar la altura del contenido una vez cargada
+    const img = burbujaContenido.querySelector("img");
+    if (img) img.addEventListener("load", actualizarDesborda, { once: true });
   }
 
   function cerrarBurbuja() {
     if (blobAbierto) blobAbierto.abierta = false;
     blobAbierto = null;
     burbuja.classList.add("mim-glosario-oculto");
+    burbujaDesborda.classList.remove("mim-glosario-visible");
   }
 
   document.getElementById("mim-glosario-cerrar").addEventListener("click", cerrarBurbuja);
@@ -171,38 +189,50 @@ function init(glosario) {
     if (e.key === "Escape") cerrarBurbuja();
   });
 
-  // positions the bubble next to its blob, comic-style, with a tail
-  // pointing back at it — flips above/below depending on available
-  // space and stays clamped inside the container
+  // positions the bubble next to its blob and stays clamped inside
+  // the container. on wide screens it opens sideways (left or right,
+  // whichever has more room) so it can use most of the container's
+  // height instead of being squeezed above/below the blob; on narrow
+  // screens there isn't enough room beside the blob, so it opens
+  // above/below instead, same as before
   function posicionarBurbuja(blob) {
     const size = blobSize();
     const half = size / 2;
-    const gap = 14;
-    const colaSize = 10;
+    const gap = 16;
+    const margen = 12;
+    const escritorio = contW > 600;
 
     const bx = blob.x + half;
     const by = blob.y + half;
 
+    // give the content as much height as the container allows, so
+    // long definiciones need less (or no) scrolling to read in full
+    burbujaContenido.style.maxHeight = `${clamp(contH - margen * 2 - 6, 200, 700)}px`;
+
     const bw = burbuja.offsetWidth;
     const bh = burbuja.offsetHeight;
 
-    const cabeArriba = (by - half - gap - colaSize - bh) >= 8;
-    let top;
-    if (cabeArriba) {
-      top = by - half - gap - colaSize - bh;
-      burbuja.dataset.cola = "abajo";
-    } else {
-      top = by + half + gap + colaSize;
-      burbuja.dataset.cola = "arriba";
-    }
-    top = clamp(top, 8, Math.max(8, contH - bh - 8));
+    let left, top;
 
-    let left = clamp(bx - bw / 2, 8, Math.max(8, contW - bw - 8));
-    const colaX = clamp(bx - left, 24, Math.max(24, bw - 24));
+    if (escritorio) {
+      const espacioDerecha = contW - (bx + half);
+      const espacioIzquierda = bx - half;
+      const abrirDerecha = espacioDerecha >= espacioIzquierda;
+
+      left = abrirDerecha ? bx + half + gap : bx - half - gap - bw;
+      left = clamp(left, margen, Math.max(margen, contW - bw - margen));
+
+      top = clamp(by - bh / 2, margen, Math.max(margen, contH - bh - margen));
+    } else {
+      const cabeArriba = (by - half - gap - bh) >= margen;
+      top = cabeArriba ? by - half - gap - bh : by + half + gap;
+      top = clamp(top, margen, Math.max(margen, contH - bh - margen));
+
+      left = clamp(bx - bw / 2, margen, Math.max(margen, contW - bw - margen));
+    }
 
     burbuja.style.left = `${left}px`;
     burbuja.style.top = `${top}px`;
-    burbuja.style.setProperty("--mim-glosario-cola-x", `${colaX}px`);
   }
 
   function loop() {
