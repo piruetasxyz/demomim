@@ -120,11 +120,11 @@ html, body {
   }
 }
 
-/* white: the goo fill (js/glosario.js) is now dark/opaque enough to
-   guarantee 4.5:1 against white for every random hue */
+/* black on the light goo fill (js/glosario.js): worst case across every
+   random hue is still ~12:1 (WCAG AA needs 4.5:1) */
 .mim-glosario-concepto {
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
 }
 
 /* burbuja de definicion, estilo comic — nace del blob en vez de

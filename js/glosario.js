@@ -308,9 +308,9 @@ function init(glosario) {
       // metaball field
       ctx.beginPath();
       ctx.arc(x + half, y + half, metaballR * scale, 0, Math.PI*2);
-      // opaque + dark (was hsla(...,60%,0.4)): guarantees 4.5:1 for the white
-      // concepto label against every hue once blurred/blended (see equipo.js)
-      ctx.fillStyle = `hsl(${b.hue}, 70%, 22%)`;
+      // light/translucent pastel fill, paired with black label text: worst
+      // case across every hue still clears ~12:1 (WCAG AA needs 4.5:1)
+      ctx.fillStyle = `hsla(${b.hue}, 70%, 60%, 0.4)`;
       ctx.fill();
     });
 

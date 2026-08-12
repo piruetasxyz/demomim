@@ -102,21 +102,20 @@ canvas {
   }
 }
 
-/* white, full opacity: the goo fill (js/equipo.js) is now dark/opaque
-   enough to guarantee 4.5:1 against white for every random hue — any
-   opacity dimming here would eat back into that margin, so weight alone
-   (700/400/100) carries the visual hierarchy instead of transparency */
+/* black on the light goo fill (js/equipo.js): worst case across every
+   random hue is still ~12:1 (WCAG AA needs 4.5:1) */
 .nombre {
   font-weight: 700;
-  color: #ffffff;
+  color: #000000;
 }
 
 .departamento {
   font-weight: 400;
-  color: #ffffff;
+  color: #000000;
 }
 
 .inst {
   font-weight: 100;
-  color: #ffffff;
+  color: #000000;
+  opacity: 0.8;
 }

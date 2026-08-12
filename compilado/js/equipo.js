@@ -154,11 +154,11 @@ function init(equipo) {
       // metaball field
       ctx.beginPath();
       ctx.arc(x + half, y + half, metaballR * scale, 0, Math.PI*2);
-      // opaque + dark (was hsla(...,60%,0.4)): a translucent pastel fill can
-      // never guarantee 4.5:1 against white label text for every random hue
-      // (yellow-green hues bottomed out around 1.9:1) — L=22% opaque clears
-      // WCAG AA across the full hue range once blurred/blended
-      ctx.fillStyle = `hsl(${b.hue}, 70%, 22%)`;
+      // light/translucent pastel fill, paired with black label text below:
+      // worst case across every hue still clears ~12:1 (WCAG AA needs 4.5:1)
+      // — it's fixed #ec6608/white label text that couldn't hit 4.5:1 here,
+      // not the background itself
+      ctx.fillStyle = `hsla(${b.hue}, 70%, 60%, 0.4)`;
       ctx.fill();
     });
 
