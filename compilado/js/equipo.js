@@ -25,9 +25,9 @@ function init(equipo) {
   let noiseTime = Math.random() * 1000;
 
   // base blob size in px, kept in sync with css/equipo.css .blob size.
-  // people with more text (name + institución) get a bigger circle so
-  // their text isn't clipped by the circular overflow.
-  const baseBlobSize = () => innerWidth <= 600 ? 64 : 100;
+  // people with more text (name + departamento + institución) get a
+  // bigger circle so their text isn't clipped by the circular overflow.
+  const baseBlobSize = () => innerWidth <= 600 ? 84 : 130;
 
   const posiciones = posicionesGrid(equipo.length, innerWidth, innerHeight);
 
@@ -39,7 +39,7 @@ function init(equipo) {
 
     const base = baseBlobSize();
     const textLen = p.nombre.length + p.departamento.length + institucion.length;
-    const size = Math.min(base * 1.5, base + Math.max(0, textLen - 28) * 1.5);
+    const size = Math.min(base * 2.2, base + Math.max(0, textLen - 20) * 2);
     const half = size / 2;
 
     const el = document.createElement("div");
@@ -55,7 +55,7 @@ function init(equipo) {
       vx: 0,
       vy: 0,
       noiseSeed: Math.random() * 1000,
-      hue: hashColor(p.nombre),
+      hue: Math.random() * 360,
       dragging: false
     };
 
@@ -186,14 +186,6 @@ function posicionesGrid(n, width, height) {
     });
   }
   return posiciones;
-}
-
-function hashColor(str) {
-  let h = 0;
-  for (let i=0;i<str.length;i++) {
-    h = str.charCodeAt(i) + ((h<<5)-h);
-  }
-  return h % 360;
 }
 
 function clamp(v, min, max) {

@@ -27,6 +27,7 @@ canvas {
   align-items: flex-start;
   gap: 0.25rem;
   pointer-events: none;
+  z-index: 10;
 }
 
 .titulo {
@@ -62,8 +63,8 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   overflow: hidden;
   pointer-events: auto;
@@ -73,8 +74,8 @@ canvas {
 
 @media (max-width: 600px) {
   .blob {
-    width: 64px;
-    height: 64px;
+    width: 84px;
+    height: 84px;
   }
 }
 
