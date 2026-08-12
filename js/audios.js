@@ -111,11 +111,11 @@ class Blob {
     ctx.textBaseline = "middle";
 
     ctx.fillStyle = "#ec6608";
-    ctx.font = "700 15px 'area', sans-serif";
+    ctx.font = "700 17px 'area', sans-serif";
     ctx.fillText(this.concepto, this.x, this.y - 9);
 
     ctx.globalAlpha = 0.8;
-    ctx.font = "400 12px 'area', sans-serif";
+    ctx.font = "400 14px 'area', sans-serif";
     ctx.fillText(this.persona, this.x, this.y + 9);
     ctx.globalAlpha = 1;
   }

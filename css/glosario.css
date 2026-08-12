@@ -107,14 +107,14 @@ html, body {
   transform: translate(-50%, -50%);
   width: 82%;
   text-align: center;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.2;
   pointer-events: none;
 }
 
 @media (max-width: 600px) {
   .mim-glosario-content {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -245,6 +245,7 @@ html, body {
 #mim-glosario-burbuja-contenido .mim-glosario-contador {
   color: var(--mim-glosario-burbuja-color, #ec6608);
   font-size: 0.85rem;
+  font-weight: 700;
   font-style: italic;
 }
 

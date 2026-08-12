@@ -38,7 +38,7 @@ function init(equipo) {
       : p["institucion-largo"];
 
     const base = baseBlobSize();
-    const textLen = p.nombre.length + institucion.length;
+    const textLen = p.nombre.length + p.departamento.length + institucion.length;
     const size = Math.min(base * 1.5, base + Math.max(0, textLen - 28) * 1.5);
     const half = size / 2;
 
@@ -62,6 +62,7 @@ function init(equipo) {
     el.innerHTML = `
       <div class="content">
         <div class="nombre">${p.nombre}</div>
+        <div class="departamento">${p.departamento}</div>
         <div class="inst">${institucion}</div>
       </div>
     `;
