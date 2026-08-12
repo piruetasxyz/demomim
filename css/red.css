@@ -30,6 +30,8 @@ body {
 .titulo {
   margin: 0;
   font-weight: 700;
+  /* large enough (default h1 size, ~32px bold) to keep the vivid brand
+     orange — 3.25:1 clears the AA large-text threshold (3:1) */
   color: #ec6608;
   pointer-events: none;
 }
@@ -38,9 +40,9 @@ body {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #ec6608;
+  color: #a34606;
   background: #ffffff;
-  border: 1.5px solid #ec6608;
+  border: 1.5px solid #a34606;
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   text-decoration: none;
@@ -51,7 +53,7 @@ body {
 
 .volver:hover,
 .volver:focus-visible {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
@@ -93,8 +95,8 @@ body {
   padding: 10px 20px;
   border-radius: 4px;
   background: #ffffff;
-  border: 1px solid #ec6608;
-  color: #ec6608;
+  border: 1px solid #a34606;
+  color: #a34606;
   font-family: "Mirador", sans-serif;
   font-size: 13px;
   line-height: 1.5;
@@ -117,7 +119,7 @@ body {
   gap: 20px;
   padding: 0 24px;
   background: #ffffff;
-  border-top: 1px solid #ec6608;
+  border-top: 1px solid #a34606;
 }
 
 .control-group {
@@ -132,7 +134,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #ec6608;
+  color: #a34606;
   white-space: nowrap;
   user-select: none;
 }
@@ -155,7 +157,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ec6608;
+  background: #a34606;
   cursor: pointer;
   border: none;
 }
@@ -164,7 +166,7 @@ input[type="range"]::-moz-range-thumb {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ec6608;
+  background: #a34606;
   cursor: pointer;
   border: none;
 }
@@ -174,8 +176,8 @@ input[type="range"]::-moz-range-thumb {
 select {
   font-family: "Mirador", sans-serif;
   font-size: 11px;
-  color: #ec6608;
-  border: 1px solid #ec6608;
+  color: #a34606;
+  border: 1px solid #a34606;
   border-radius: 3px;
   padding: 3px 6px;
   background: #ffffff;
@@ -184,7 +186,7 @@ select {
 }
 
 select:hover {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
@@ -196,8 +198,8 @@ button {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  color: #ec6608;
-  border: 1px solid #ec6608;
+  color: #a34606;
+  border: 1px solid #a34606;
   border-radius: 3px;
   background: #ffffff;
   padding: 5px 11px;
@@ -208,19 +210,19 @@ button {
 }
 
 button:hover {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
 button:active {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
 .template-btn.active {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
-  border-color: #ec6608;
+  border-color: #a34606;
 }
 
 /* ── Responsive / Mobile ─────────────────────────────────────────────────── */
@@ -267,7 +269,7 @@ button:active {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #ec6608;
+    background: #a34606;
     cursor: pointer;
     border: none;
   }

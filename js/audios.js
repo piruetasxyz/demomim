@@ -100,24 +100,27 @@ class Blob {
     }
 
     gooCtx.closePath();
-    gooCtx.fillStyle = `hsla(${this.hue}, 70%, 60%, 0.4)`;
+    // opaque + dark (was hsla(...,60%,0.4)): guarantees 4.5:1 for the white
+    // label text against every hue once blurred/blended (see equipo.js)
+    gooCtx.fillStyle = `hsl(${this.hue}, 70%, 22%)`;
     gooCtx.fill();
   }
 
   // crisp label, drawn unblurred on top of the goo layer: the
-  // glosario concept on top (bold), the person's name below (lighter)
+  // glosario concept on top (bold), the person's name below (lighter).
+  // Both full-opacity white — the goo fill is dark enough now that any
+  // alpha dimming here would eat back into the AA contrast margin, so
+  // weight (700 vs 400) carries the hierarchy instead of transparency.
   drawLabel() {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    ctx.fillStyle = "#ec6608";
+    ctx.fillStyle = "#ffffff";
     ctx.font = "700 17px 'area', sans-serif";
     ctx.fillText(this.concepto, this.x, this.y - 9);
 
-    ctx.globalAlpha = 0.8;
     ctx.font = "400 14px 'area', sans-serif";
     ctx.fillText(this.persona, this.x, this.y + 9);
-    ctx.globalAlpha = 1;
   }
 
   update(audioLevel) {

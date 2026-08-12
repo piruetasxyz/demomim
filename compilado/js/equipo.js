@@ -154,7 +154,11 @@ function init(equipo) {
       // metaball field
       ctx.beginPath();
       ctx.arc(x + half, y + half, metaballR * scale, 0, Math.PI*2);
-      ctx.fillStyle = `hsla(${b.hue}, 70%, 60%, 0.4)`;
+      // opaque + dark (was hsla(...,60%,0.4)): a translucent pastel fill can
+      // never guarantee 4.5:1 against white label text for every random hue
+      // (yellow-green hues bottomed out around 1.9:1) — L=22% opaque clears
+      // WCAG AA across the full hue range once blurred/blended
+      ctx.fillStyle = `hsl(${b.hue}, 70%, 22%)`;
       ctx.fill();
     });
 

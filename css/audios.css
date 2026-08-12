@@ -1,9 +1,13 @@
+/* #a34606 is the text-safe orange (6.1:1 vs white, clears WCAG AA); see
+   css/estilo.css for the full rationale. .titulo below keeps the vivid
+   #ec6608 since it's large enough (default h1 size) for the AA large-text
+   threshold (3:1) on its own. */
 body {
   margin: 0;
   background: #ffffff;
   overflow: hidden;
   font-family: "Mirador", sans-serif;
-  color: #ec6608;
+  color: #a34606;
 }
 
 canvas {
@@ -52,9 +56,9 @@ canvas {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #ec6608;
+  color: #a34606;
   background: #ffffff;
-  border: 1.5px solid #ec6608;
+  border: 1.5px solid #a34606;
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   text-decoration: none;
@@ -65,6 +69,6 @@ canvas {
 
 .volver:hover,
 .volver:focus-visible {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }

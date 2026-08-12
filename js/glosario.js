@@ -161,7 +161,10 @@ function init(glosario) {
 
     burbujaContenido.innerHTML = html;
     burbujaContenido.scrollTop = 0;
-    burbuja.style.setProperty("--mim-glosario-burbuja-color", `hsl(${blob.hue}, 70%, 45%)`);
+    // L=28% (down from 45%) is the darkest-lightness floor at which every hue in
+    // the 0-360 range still clears 4.5:1 contrast against white (WCAG AA) — at
+    // 45% yellow-green hues (~60°) dropped as low as 1.9:1
+    burbuja.style.setProperty("--mim-glosario-burbuja-color", `hsl(${blob.hue}, 70%, 28%)`);
 
     if (blobAbierto && blobAbierto !== blob) blobAbierto.abierta = false;
     blob.abierta = true;
@@ -305,7 +308,9 @@ function init(glosario) {
       // metaball field
       ctx.beginPath();
       ctx.arc(x + half, y + half, metaballR * scale, 0, Math.PI*2);
-      ctx.fillStyle = `hsla(${b.hue}, 70%, 60%, 0.4)`;
+      // opaque + dark (was hsla(...,60%,0.4)): guarantees 4.5:1 for the white
+      // concepto label against every hue once blurred/blended (see equipo.js)
+      ctx.fillStyle = `hsl(${b.hue}, 70%, 22%)`;
       ctx.fill();
     });
 

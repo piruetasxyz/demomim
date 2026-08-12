@@ -46,13 +46,15 @@ html, body {
   pointer-events: none;
 }
 
+/* #a34606 (6.1:1 vs white) is the text-safe orange, used anywhere text is
+   under the AA large-text size threshold — see css/estilo.css */
 .mim-glosario-volver {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #ec6608;
+  color: #a34606;
   background: #ffffff;
-  border: 1.5px solid #ec6608;
+  border: 1.5px solid #a34606;
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   text-decoration: none;
@@ -63,7 +65,7 @@ html, body {
 
 .mim-glosario-volver:hover,
 .mim-glosario-volver:focus-visible {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
@@ -118,9 +120,11 @@ html, body {
   }
 }
 
+/* white: the goo fill (js/glosario.js) is now dark/opaque enough to
+   guarantee 4.5:1 against white for every random hue */
 .mim-glosario-concepto {
   font-weight: 700;
-  color: #ec6608;
+  color: #ffffff;
 }
 
 /* burbuja de definicion, estilo comic — nace del blob en vez de

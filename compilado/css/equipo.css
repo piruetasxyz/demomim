@@ -1,10 +1,14 @@
+/* #a34606 is the text-safe orange (6.1:1 vs white, clears WCAG AA); the
+   vivid #ec6608 (3.25:1) is kept only on .titulo below, which is large
+   enough (default h1 size, ~32px bold) to clear the AA large-text
+   threshold (3:1) on its own. See css/estilo.css for the full rationale. */
 body {
   margin: 0;
   overflow: hidden;
   background: #ffffff;
   font-family: "Mirador", sans-serif;
   font-weight: 400;
-  color: #ec6608;
+  color: #a34606;
 }
 
 canvas {
@@ -41,9 +45,9 @@ canvas {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #ec6608;
+  color: #a34606;
   background: #ffffff;
-  border: 1.5px solid #ec6608;
+  border: 1.5px solid #a34606;
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   text-decoration: none;
@@ -54,7 +58,7 @@ canvas {
 
 .volver:hover,
 .volver:focus-visible {
-  background: #ec6608;
+  background: #a34606;
   color: #ffffff;
 }
 
@@ -98,18 +102,21 @@ canvas {
   }
 }
 
+/* white, full opacity: the goo fill (js/equipo.js) is now dark/opaque
+   enough to guarantee 4.5:1 against white for every random hue — any
+   opacity dimming here would eat back into that margin, so weight alone
+   (700/400/100) carries the visual hierarchy instead of transparency */
 .nombre {
   font-weight: 700;
-  color: #ec6608;
+  color: #ffffff;
 }
 
 .departamento {
   font-weight: 400;
-  color: #ec6608;
+  color: #ffffff;
 }
 
 .inst {
   font-weight: 100;
-  color: #ec6608;
-  opacity: 0.8;
+  color: #ffffff;
 }

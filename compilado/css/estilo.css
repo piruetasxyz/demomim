@@ -1,32 +1,130 @@
+/* #a34606 (down from the brand's #ec6608) is the text-safe orange: 6.1:1
+   against white, clears WCAG AA (4.5:1) for normal-size text. #ec6608 only
+   has 3.25:1, which just clears the AA large-text threshold (3:1) — so it's
+   kept for .inicio-titulo below (≥40px bold) but nothing smaller. */
 body {
     font-family: "Mirador", sans-serif;
     font-weight: 400;
     background: #ffffff;
-    color: #ec6608;
+    color: #a34606;
     margin: 0;
-    padding: 20px;
 }
 
-h1 {
+.volver {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    font-family: inherit;
+    font-size: 0.8rem;
     font-weight: 700;
-    color: #ec6608;
-}
-
-ul {
-    padding: 0;
-    list-style: none;
-}
-
-li {
-    margin: 8px 0;
-}
-
-a {
-    color: #ec6608;
+    color: #a34606;
+    background: #ffffff;
+    border: 1.5px solid #a34606;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
     text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.volver:hover,
+.volver:focus-visible {
+    background: #a34606;
+    color: #ffffff;
+}
+
+.inicio {
+    box-sizing: border-box;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.inicio-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.inicio-kicker {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    /* was 0.7 — at that opacity even the dark orange fades below 4.5:1;
+       0.85 is the floor that keeps it compliant */
+    opacity: 0.85;
+}
+
+.inicio-titulo {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    /* large enough (≥40px bold) to use the vivid brand orange — 3.25:1
+       clears the AA large-text threshold (3:1) */
+    color: #ec6608;
+}
+
+.inicio-descripcion {
+    margin: 0 auto;
+    max-width: 46ch;
+    font-size: 1.05rem;
+    line-height: 1.5;
     font-weight: 400;
 }
 
-a:hover {
-    text-decoration: underline;
+.inicio-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 520px) {
+    .inicio-nav {
+        grid-template-columns: 1fr;
+    }
+}
+
+.inicio-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    border: 1.5px solid #a34606;
+    border-radius: 20px;
+    color: #a34606;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.inicio-tarjeta:hover,
+.inicio-tarjeta:focus-visible {
+    background: #a34606;
+    color: #ffffff;
+}
+
+.inicio-tarjeta-titulo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.inicio-tarjeta-texto {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.inicio-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    /* was 0.7 — see .inicio-kicker */
+    opacity: 0.85;
+}
+
+.inicio-footer p {
+    margin: 0;
 }
